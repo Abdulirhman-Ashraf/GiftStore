@@ -28,6 +28,7 @@ const Login = () => {
   return (
     <div className="login">
       <Form className="w-50 m-auto pt-5" onSubmit={handleSubmit}>
+        <Alert variant="info" style={{fontWeight:"bold"}}>For Admin Dashboard <br /> Email : admin@example.com & password : 123456</Alert>
         {/* email */}
         <Inputs type={"email"} id={"Email"} ref={emailRef} />
 
