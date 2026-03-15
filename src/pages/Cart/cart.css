@@ -1,0 +1,16 @@
+.offcanvas{
+position: relative;
+
+}
+.offcanvas .cartFooter {
+  position: sticky;
+  width: 90%;
+  margin: auto;
+  bottom: 0;
+  background-color: #fff;
+  padding-block: 10px;
+}
+.offcanvas .cartFooter .totalPrice {
+  margin: auto;
+  margin-bottom: 10px;
+}

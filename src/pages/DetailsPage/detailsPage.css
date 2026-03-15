@@ -1,0 +1,16 @@
+.detailsPage img {
+  width: 250px;
+  height: 300px;
+}
+.detailsPage .stock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #000;
+  margin-bottom: 5px;
+  border-radius: 6px;
+}
+.detailsPage .stock button {
+  width: 100px;
+  border: 1px solid #000;
+}
