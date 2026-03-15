@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
-import Buttons from "../../components/Buttons";
 import { useFireStore } from "../../context/FireStoreContext";
-import Search from "../../components/Search/Search";
+import Search from "../../components/search/Search";
 import NoImage from "../../assets/image-icon-front-side.jpg";
-import SeeMore from "../../components/seeMore/SeeMore";
 import { Link, useNavigate } from "react-router-dom";
 const Shop = () => {
   const { allProducts } = useFireStore();
