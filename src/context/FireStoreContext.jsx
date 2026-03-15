@@ -23,11 +23,11 @@ const FireStoreProvider = ({ children }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [role, setRole] = useState(null);
-
+  const [userName, setUserName] = useState(null);
   const colRef = useMemo(() => {
     if (!currentUser) return null;
 
-    return collection(db, `users/${currentUser.uid}/product`);
+    return collection(db, `product`);
   }, [currentUser]);
 
   // realtime getDocs
@@ -47,6 +47,13 @@ const FireStoreProvider = ({ children }) => {
       setProducts(fireProducts);
       setLoading(false);
     });
+
+    return () => {
+      unsub();
+    };
+  }, [colRef]);
+  // admin check
+  useEffect(() => {
     const getUserRole = async () => {
       const docRef = doc(db, "users", currentUser.uid);
       const snap = await getDoc(docRef);
@@ -55,10 +62,7 @@ const FireStoreProvider = ({ children }) => {
       }
     };
     getUserRole();
-    return () => {
-      unsub();
-    };
-  }, [colRef, currentUser]);
+  }, [currentUser]);
   //  Add Doc
 
   const addToStore = async (productData) => {
@@ -126,7 +130,25 @@ const FireStoreProvider = ({ children }) => {
     return await updateDoc(docCartRef, { count: updateDate });
   };
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  // fetch user name
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if (!currentUser) {
+        setUserName("");
+        return;
+      }
+      try {
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const docSnap = await getDoc(userDocRef);
+        if (docSnap.exists()) {
+          setUserName(docSnap.data().name);
+        }
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+      }
+    };
+    fetchUserName();
+  }, []);
   return (
     <FireStoreContext.Provider
       value={{
@@ -142,6 +164,7 @@ const FireStoreProvider = ({ children }) => {
         setIsCartOpen,
         role,
         updateStock,
+        userName
       }}
     >
       {loading ? <h2 className="text-center">Loading...</h2> : children}

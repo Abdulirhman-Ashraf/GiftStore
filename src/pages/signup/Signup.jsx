@@ -22,7 +22,11 @@ const Signup = () => {
     try {
       if (confirmPasswordRef.current.value === passwordRef.current.value) {
         setLoading(true);
-        await signup(emailRef.current.value, passwordRef.current.value);
+        await signup(
+          emailRef.current.value,
+          passwordRef.current.value,
+          nameRef.current.value,
+        );
         navigate("/");
       } else {
         setError("Passwords don't match");
