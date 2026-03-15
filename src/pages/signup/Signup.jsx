@@ -10,7 +10,6 @@ const Signup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const UserTypeRef = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { signup } = useAuth();
@@ -52,21 +51,7 @@ const Signup = () => {
           type={"password"}
           ref={confirmPasswordRef}
         />
-        <div>
-          <label htmlFor="userOrMerchant">Mechant or User</label>
-          <select
-            className="form-select my-3"
-            id="userOrMerchant"
-            defaultValue={""}
-            ref={UserTypeRef}
-          >
-            <option value="" hidden disabled>
-              Choose option
-            </option>
-            <option value="User">User</option>
-            <option value="Merchant">Merchant</option>
-          </select>
-        </div>
+
         {error && <Alert variant="danger"> {error}</Alert>}
         <Buttons variant="primary" value="Sign up" loading={loading} />
         <div>
