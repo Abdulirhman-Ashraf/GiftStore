@@ -40,7 +40,7 @@ const Dashboard = () => {
           />
         }
       </div>
-      <Table striped bordered hover size="sm" className="mt-4">
+      <Table  bordered  size="sm" className="mt-4">
         <thead>
           <tr>
             <th>#</th>

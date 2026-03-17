@@ -1,35 +1,56 @@
 import { useEffect, useState } from "react";
-import { Card, Container } from "react-bootstrap";
+import { Alert, Card, Container } from "react-bootstrap";
 import { useFireStore } from "../../context/FireStoreContext";
 import Search from "../../components/search/Search";
 import NoImage from "../../assets/image-icon-front-side.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import "./shop.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilterCircleXmark } from "@fortawesome/free-solid-svg-icons";
 const Shop = () => {
   const { allProducts } = useFireStore();
   const [displayProducts, setDisplayedProduct] = useState([]);
   const navigate = useNavigate();
+  const [serachParam] = useSearchParams();
+
+  const categoryFromUrl = serachParam.get("category");
+
   useEffect(() => {
-    if (allProducts) {
+    if (categoryFromUrl) {
+      const filteredProducts = allProducts.filter(
+        (product) => product.category === categoryFromUrl,
+      );
+      setDisplayedProduct(filteredProducts);
+    } else {
       setDisplayedProduct(allProducts);
     }
-  }, [allProducts]);
+  }, [allProducts, categoryFromUrl]);
+  const removeFilter = () => {
+    navigate("/shop");
+  };
   return (
     <div className="shop ">
-      <Container className="">
+      <Container >
         <Search
           products={allProducts}
           setDisplayedProduct={setDisplayedProduct}
         />
-        <div className="d-flex justify-content-beteen gap-5 align-items-start flex-wrap  ">
+        {!displayProducts.length&& <Alert variant="info">Not Found!</Alert>}
+        {categoryFromUrl && (
+          <div onClick={() => removeFilter()} className="my-3 categoryLabel">
+            {categoryFromUrl} <FontAwesomeIcon icon={faFilterCircleXmark} />
+          </div>
+        )}
+        <div className="d-flex justify-content-start gap-5 align-items-start flex-wrap  ">
           {displayProducts?.map((product) => {
             return (
               <Link
+                key={product.id}
                 to={`/details-page`}
                 state={{ product: product }}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <Card
-                  key={product.id}
                   style={{
                     width: "220px",
                     height: "350px",
@@ -46,7 +67,11 @@ const Shop = () => {
                   <Card.Img
                     variant="top"
                     src={product?.imageUrl || NoImage}
-                    style={{ width: "200px", height: "240px" }}
+                    style={{
+                      width: "200px",
+                      height: "240px",
+                      objectFit: "cover",
+                    }}
                   />
                   <Card.Body>
                     <Card.Title style={{ fontSize: "16px" }}>

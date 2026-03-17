@@ -75,7 +75,7 @@ const Cart = () => {
                     }}
                   >
                     <Card.Img
-                      style={{ width: "120px", height: "120px" }}
+                      style={{ width: "120px", height: "120px" ,objectFit:"cover"}}
                       src={item?.imageUrl || NoImage}
                     />
                     <Card.Body
@@ -161,25 +161,24 @@ const Cart = () => {
               ))
             )}
           </Offcanvas.Body>
-            {
-              cartItems.length&&  <div className="cartFooter">
-            <Row style={{ fontWeight: "bold" }} className="totalPrice">
-              <Col md={9}>Subtotal</Col>
-              <Col md={3}>
-                $
-                {cartItems.reduce(
-                  (total, item) => total + item.price * item.count,
-                  0,
-                )}
-              </Col>
-            </Row>
-            <Buttons
-              value={"Checkout"}
-              style={{ width: "100% ", height: "50px", fontSize: "20px" }}
-            />
-          </div>
-            }
-        
+          {cartItems.length && (
+            <div className="cartFooter">
+              <Row style={{ fontWeight: "bold" }} className="totalPrice">
+                <Col md={9}>Subtotal</Col>
+                <Col md={3}>
+                  $
+                  {cartItems.reduce(
+                    (total, item) => total + item.price * item.count,
+                    0,
+                  )}
+                </Col>
+              </Row>
+              <Buttons
+                value={"Checkout"}
+                style={{ width: "100% ", height: "50px", fontSize: "20px" }}
+              />
+            </div>
+          )}
         </Offcanvas>
       </Container>
     </div>

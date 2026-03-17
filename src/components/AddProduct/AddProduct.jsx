@@ -120,9 +120,10 @@ const ProductModal = ({ value, id, initialData }) => {
               </option>
               <option value="Clothing">Clothing</option>
               <option value="Tech">Tech</option>
+              <option value="video game">Video Game</option>
               <option value="Books">Books</option>
               <option value="School">School</option>
-              <option value="Personal-Care">Personal Care</option>
+              <option value="Personal Care">Personal Care</option>
             </select>
             <Inputs
               type={"text"}

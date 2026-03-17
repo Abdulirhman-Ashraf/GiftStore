@@ -23,12 +23,17 @@ const DetailsPage = () => {
   const ChangedStock = cartItems?.find(
     (item) => item?.productId === product?.id,
   );
+
   const [stockCount, setStockCount] = useState(1);
   useEffect(() => {
     if (ChangedStock) {
       setStockCount(ChangedStock?.count);
     }
   }, [ChangedStock]);
+  // handle category on Click
+  const handleCategory = (category) => {
+    navigate(`/shop?category=${category}`);
+  };
   const handleAddCart = async () => {
     if (!currentUser) {
       alert("You need to login first to add products to your cart");
@@ -66,7 +71,6 @@ const DetailsPage = () => {
             <div>
               in stock :
               <span style={{ color: "green", fontSize: "13px" }}>
-                {" "}
                 {product?.quantity}
               </span>
             </div>
@@ -76,7 +80,12 @@ const DetailsPage = () => {
             <div style={{ fontSize: "20px" }}>
               <strong> ${product?.price}</strong>
             </div>
-            <div>Category : {product?.category}</div>
+            <div
+              className="category"
+              onClick={()=>handleCategory(product?.category)}
+            >
+              Category: {product?.category}
+            </div>
             <div>Brand : {product?.brand}</div>
             <div>
               Description : <SeeMore text={product?.description || "No text"} />

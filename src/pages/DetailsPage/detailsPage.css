@@ -1,6 +1,13 @@
 .detailsPage img {
   width: 250px;
   height: 300px;
+  object-fit: contain;
+  object-position: center;
+}
+.detailsPage .category{
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgb(10, 10, 104);
 }
 .detailsPage .stock {
   display: flex;

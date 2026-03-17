@@ -10,10 +10,12 @@ const SwiperPage = ({ products }) => {
   const navigate = useNavigate();
   return (
     <Swiper
-      spaceBetween={30}
-      slidesPerView={4}
+    style={{margin:"auto"}}
+      spaceBetween={20}
+      slidesPerView={5}
       onSlideChange={() => console.log("slide change")}
       onSwiper={(swiper) => console.log(swiper)}
+
     >
       {products?.map((product) => (
         <SwiperSlide>
@@ -40,7 +42,7 @@ const SwiperPage = ({ products }) => {
               <Card.Img
                 variant="top"
                 src={product?.imageUrl || NoImage}
-                style={{ width: "200px", height: "240px" }}
+                style={{ width: "200px", height: "240px",objectFit:"cover" }}
               />
               <Card.Body>
                 <Card.Title

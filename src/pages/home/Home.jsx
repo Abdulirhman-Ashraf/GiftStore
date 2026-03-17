@@ -1,6 +1,5 @@
 import SwiperPage from "../../components/SwiperComponent/Swiper";
 import { useFireStore } from "../../context/FireStoreContext";
-import home from "../../assets/1.jpg";
 import "./home.css";
 const Home = () => {
   const { allProducts } = useFireStore();
@@ -17,10 +16,7 @@ const Home = () => {
         </p>
         <h2 className="text-center my-4">Best Selles</h2>
         <SwiperPage products={allProducts} />
-        <h2 className="text-center my-4">Books</h2>
-        <SwiperPage products={allProducts} />
-        <h2 className="text-center my-4">Best Offers</h2>
-        <SwiperPage products={allProducts} />
+   
       </div>
     </section>
   );
