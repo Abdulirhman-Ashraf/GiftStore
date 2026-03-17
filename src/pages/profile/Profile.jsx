@@ -7,7 +7,7 @@ import { useFireStore } from "../../context/FireStoreContext";
 const Profile = () => {
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
-  const { products, userName } = useFireStore();
+  const {  userName } = useFireStore();
 
   return (
     <div className="container profile">

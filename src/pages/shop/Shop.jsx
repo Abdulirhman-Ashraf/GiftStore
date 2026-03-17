@@ -8,39 +8,41 @@ import "./shop.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilterCircleXmark } from "@fortawesome/free-solid-svg-icons";
 const Shop = () => {
-  const { allProducts } = useFireStore();
+  const { products } = useFireStore();
   const [displayProducts, setDisplayedProduct] = useState([]);
   const navigate = useNavigate();
   const [serachParam] = useSearchParams();
 
   const categoryFromUrl = serachParam.get("category");
-
   useEffect(() => {
     if (categoryFromUrl) {
-      const filteredProducts = allProducts.filter(
+      const filteredProducts = products.filter(
         (product) => product.category === categoryFromUrl,
       );
       setDisplayedProduct(filteredProducts);
     } else {
-      setDisplayedProduct(allProducts);
+      setDisplayedProduct(products);
     }
-  }, [allProducts, categoryFromUrl]);
+  }, [products, categoryFromUrl]);
   const removeFilter = () => {
     navigate("/shop");
   };
   return (
     <div className="shop ">
-      <Container >
+      <Container>
         <Search
-          products={allProducts}
+          products={products}
           setDisplayedProduct={setDisplayedProduct}
+          location={'shop'}
         />
-        {!displayProducts.length&& <Alert variant="info">Not Found!</Alert>}
-        {categoryFromUrl && (
+        
+        { categoryFromUrl && (
           <div onClick={() => removeFilter()} className="my-3 categoryLabel">
             {categoryFromUrl} <FontAwesomeIcon icon={faFilterCircleXmark} />
           </div>
         )}
+ 
+        {!displayProducts.length && <Alert variant="info">Not Found!</Alert>}
         <div className="d-flex justify-content-start gap-5 align-items-start flex-wrap  ">
           {displayProducts?.map((product) => {
             return (

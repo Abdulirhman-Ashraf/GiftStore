@@ -7,7 +7,6 @@ import NoImage from "../../assets/image-icon-front-side.jpg";
 import { Link, useNavigate } from "react-router-dom";
 
 const SwiperPage = ({ products }) => {
-  const navigate = useNavigate();
   return (
     <Swiper
     style={{margin:"auto"}}

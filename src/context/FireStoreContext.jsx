@@ -20,7 +20,6 @@ const FireStoreProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { currentUser } = useAuth();
-  const [allProducts, setAllProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [role, setRole] = useState(null);
   const [userName, setUserName] = useState(null);
@@ -68,20 +67,7 @@ const FireStoreProvider = ({ children }) => {
   const addToStore = async (productData) => {
     await addDoc(colRef, { ...productData, createAt: serverTimestamp() });
   };
-  //get all products
-  useEffect(() => {
-    const q = query(collectionGroup(db, "product"), orderBy("createAt"));
-    const unsubAll = onSnapshot(q, (snapshot) => {
-      const EveryProduct = snapshot.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id };
-      });
-      setAllProducts(EveryProduct);
-      setLoading(false);
-    });
-    return () => {
-      unsubAll();
-    };
-  }, []);
+  
   // Delete Doc
 
   const handleDelete = async (id) => {
@@ -148,12 +134,11 @@ const FireStoreProvider = ({ children }) => {
       }
     };
     fetchUserName();
-  }, []);
+  }, [currentUser]);
   return (
     <FireStoreContext.Provider
       value={{
         products,
-        allProducts,
         addToStore,
         handleDelete,
         update,
