@@ -1,9 +1,40 @@
-.shop .categoryLabel{
-    padding:5px 20px;
-    border-radius: 30px;
-    width: fit-content;
-    background-color: gray;
-    cursor: pointer;
-    color: #fff;
-    font-size: 20px;
+.shop {
+  margin: auto !important;
+}
+.shop .card-body {
+  position: relative;
+  width: 100%;
+}
+.shop img {
+  border-radius: 10px;
+}
+.shop .categoryLabel {
+  padding: 10px 20px;
+  border-radius: 40px;
+  width: fit-content;
+  cursor: pointer;
+  font-size: 18px;
+  background-color: rgb(var(--color-primary)) !important;
+  transition: all ease-in-out 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.shop .productBtn {
+  width: 92%;
+  padding-block: 10px !important;
+
+  position: absolute;
+  bottom: 10px;
+  background-color: rgb(var(--color-bg-main));
+  border: 1px solid rgb(var(--color-primary));
+  color: rgb(var(--color-text-dark));
+  font-weight: 700;
+  border-radius: 40px;
+}
+
+.shop .productBtn:hover {
+  background-color: rgb(var(--color-primary));
+  color: rgb(var(--color-bg-main));
 }

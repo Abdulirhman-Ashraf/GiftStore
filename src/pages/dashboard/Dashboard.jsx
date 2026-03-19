@@ -18,14 +18,14 @@ const Dashboard = () => {
 
   return (
     <div className="container profile">
-      <div className="d-flex justify-content-center align-items-center gap-3">
+      <div className="text-center mt-5">
         {<ProductModal value={"New Product"} />}
+        </div>
         <Search
           products={products}
           setDisplayedProduct={setDisplayedProduct}
           location={"dashboard"}
         />
-      </div>
       {!displayedProduct.length ? (
         <Alert variant="info">Not Found!</Alert>
       ) : (
@@ -44,7 +44,7 @@ const Dashboard = () => {
               <th>Update</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody>
             {displayedProduct.map((product, index) => {
               return (
                 <tr key={product.id}>

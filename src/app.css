@@ -1,19 +1,42 @@
-*{
+* {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
 }
-.login,.signup,.forgetPasswod{
+:root {
+  /* اللون الأساسي (الأخضر الداكن للأزرار والعناصر البارزة) HEX: #1B5E5F */
+  /* green for btn and filter*/
+  --color-primary: 27, 94, 95;
+  /* gold seconed color for btn and links hover*/
+  /* اللون الثانوي (الذهبي/الرملي للفلاتر واللمسات الجمالية) HEX: #C19A6B */
+  --color-accent: 193, 154, 107;
+  /* لون الخلفية الرئيسي للموقع (أوف وايت مريح للعين) HEX: #F1F1EF */
+  --color-bg-main: 241, 241, 239;
+
+  /* لون خلفية ثانوي (للفوتر أو الأقسام المنفصلة) HEX: #E1E1DE */
+  --color-bg-secondary: 225, 225, 222;
+  /* لون النصوص الأساسي (أسود مطفي مريح للقراءة) HEX: #333333 */
+  --color-text-dark: 51, 51, 51;
+  /* اللون الأبيض للكروت والنصوص فوق الألوان الداكنة HEX: #FFFFFF */
+  --color-white: 255, 255, 255;
+}
+body {
+  background-color: rgb(var(--color-bg-main)) !important;
+  color: rgb(var(--color-text-dark)) !important;
+  font-family: "Inter", sans-serif !important;
+}
+.login,
+.signup,
+.forgetPasswod {
   width: 100%;
   height: 100vh;
-
 }
-.app{
-    display: flex;
-    flex-direction: column;
+.app {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
 }
-.app main{
+.app main {
   flex: 1;
 }

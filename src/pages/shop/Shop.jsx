@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
-import { Alert, Card, Container } from "react-bootstrap";
+import {
+  Alert,
+  Badge,
+  Button,
+  Card,
+  Col,
+  Container,
+  Row,
+} from "react-bootstrap";
 import { useFireStore } from "../../context/FireStoreContext";
 import Search from "../../components/search/Search";
 import NoImage from "../../assets/image-icon-front-side.jpg";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import "./shop.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilterCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faX, faXmark } from "@fortawesome/free-solid-svg-icons";
+import "./shop.css";
 const Shop = () => {
   const { products } = useFireStore();
   const [displayProducts, setDisplayedProduct] = useState([]);
@@ -30,64 +38,80 @@ const Shop = () => {
   return (
     <div className="shop ">
       <Container>
+        <h2 className="text-center mt-5" style={{ fontWeight: "bold" }}>
+          shop
+        </h2>
         <Search
           products={products}
           setDisplayedProduct={setDisplayedProduct}
-          location={'shop'}
+          location={"shop"}
         />
-        
-        { categoryFromUrl && (
-          <div onClick={() => removeFilter()} className="my-3 categoryLabel">
-            {categoryFromUrl} <FontAwesomeIcon icon={faFilterCircleXmark} />
-          </div>
+
+        {categoryFromUrl && (
+          <Badge onClick={() => removeFilter()} className="mb-3 ms-4 categoryLabel">
+            {categoryFromUrl} <FontAwesomeIcon icon={faX} />
+          </Badge>
         )}
- 
+
         {!displayProducts.length && <Alert variant="info">Not Found!</Alert>}
-        <div className="d-flex justify-content-start gap-5 align-items-start flex-wrap  ">
+        <Row className=" m-auto" >
           {displayProducts?.map((product) => {
             return (
-              <Link
-                key={product.id}
-                to={`/details-page`}
-                state={{ product: product }}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
+              <Col  md={4}>
+              
                 <Card
                   style={{
-                    width: "220px",
-                    height: "350px",
+                    width: "100%",
+                    height: "380px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "start",
-                    justifyContent: "center ",
+                    gap: "10px",
                     border: "none",
+                    overflow: "hidden",
                     borderRadius: "8px",
                     padding: "10px",
-                    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                    margin:"10px auto",
+
+                    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)",
                   }}
                 >
                   <Card.Img
                     variant="top"
                     src={product?.imageUrl || NoImage}
                     style={{
-                      width: "200px",
-                      height: "240px",
+                      width: "100%",
+                      height: "220px",
                       objectFit: "cover",
                     }}
                   />
                   <Card.Body>
-                    <Card.Title style={{ fontSize: "16px" }}>
+                    <Card.Title
+                      style={{
+                        fontSize: "14px",
+                        textTransform: "uppercase",
+                        fontWeight: "600",
+                      }}
+                    >
                       {product.name}
                     </Card.Title>
                     <Card.Title style={{ fontSize: "16px" }}>
-                      ${product.price}
+                      <strong>${product.price.toFixed(2)}</strong>
                     </Card.Title>
+                    <Link
+                      key={product.id}
+                      to={`/details-page`}
+                      state={{ product: product }}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <Button className="btn productBtn">Product Details</Button>
+                    </Link>
                   </Card.Body>
                 </Card>
-              </Link>
+              </Col>
             );
           })}
-        </div>
+        </Row>
       </Container>
     </div>
   );

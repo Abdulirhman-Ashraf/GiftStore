@@ -11,7 +11,7 @@ import Footer from "./components/footer/Footer.jsx";
 import "./app.css";
 function App() {
   return (
-    <div className="app">
+    <section className="app">
       <NavbarPage />
       <main>
         <Routes>
@@ -43,7 +43,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-    </div>
+    </section>
   );
 }
 

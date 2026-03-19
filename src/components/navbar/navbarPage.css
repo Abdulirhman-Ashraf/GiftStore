@@ -1,15 +1,26 @@
 .navbarPage .cartBox {
   position: relative;
 }
-.navbarPage .displayedProductCount {
-  top: -6px;
-  right: 6px;
+
+.navbarPage .nav-link {
+  color: rgb(var(--color-text-dark));
+  position: relative;
+  margin-right: 40px;
+  overflow: hidden;
+  width: fit-content;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.navbarPage .nav-link::after {
+  content: "";
+  width: 0px;
+  height: 2px;
   position: absolute;
-  background-color: rgba(255, 0, 0, 0.77);
-  color: #fff;
-  width: 19px;
-  height: 16px;
-  text-align: center;
-  border-radius: 50%;
-  font-size: 10px;
+  bottom: 8px;
+  left: 0px;
+  transition: 0.4s width ease-in-out;
+  background-color: rgb(var(--color-accent));
+}
+.navbarPage .nav-link:hover::after {
+  width: 100%;
 }

@@ -1,7 +1,6 @@
 import { Button, Card, Col, Container, Offcanvas, Row } from "react-bootstrap";
 import NoImage from "../../assets/image-icon-front-side.jpg";
 import { useFireStore } from "../../context/FireStoreContext";
-import { useAuth } from "../../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -44,9 +43,11 @@ const Cart = () => {
             border: "none",
             background: "none",
             color: "black",
+            fontSize:"16px",
+            fontWeight:"600"
           }}
         >
-          <FontAwesomeIcon icon={faCartShopping} />
+          Cart <FontAwesomeIcon className="cartIcon" icon={faCartShopping} />
         </Button>
 
         <Offcanvas
