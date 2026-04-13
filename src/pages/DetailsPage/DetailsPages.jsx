@@ -63,11 +63,11 @@ const DetailsPage = () => {
   return (
     <div className="detailsPage">
       <Container>
-        <div className="d-flex justify-content-evenly gap-3 align-items-start details-container mt-5">
-          <div className="left">
+        <div className="row details-container mt-5">
+          <div className="left col-12 col-md-4">
             <img src={product?.imageUrl || NoImage} alt="product image" />
           </div>
-          <div className="center">
+          <div className="center col-12 col-md-4">
             <div>
               in stock :
               <span style={{ color: "green", fontSize: "13px" }}>
@@ -80,18 +80,15 @@ const DetailsPage = () => {
             <div style={{ fontSize: "20px" }}>
               <strong> ${product?.price}</strong>
             </div>
-            <div
-              className="category"
-              onClick={()=>handleCategory(product?.category)}
-            >
-              Category: {product?.category}
+            <div onClick={() => handleCategory(product?.category)}>
+             <b>Category</b> : <span className="category">{product?.category}</span>
             </div>
-            <div>Brand : {product?.brand}</div>
+            {product?.brand && <div>Brand : {product?.brand}</div>}
             <div>
-              Description : <SeeMore text={product?.description || "No text"} />
+            <b>Description </b>  : <SeeMore text={product?.description || "No text"} />
             </div>
           </div>
-          <div className="right">
+          <div className="right  col-12 col-md-4">
             <div className="mb-2">
               Total Price <strong> ${product?.price * stockCount}</strong>
             </div>
@@ -119,7 +116,7 @@ const DetailsPage = () => {
             <Buttons
               value={"Add To Cart"}
               onClick={handleAddCart}
-              style={{ width: "300px" }}
+              style={{ width: "100%" }}
               disabled={loading}
             />
           </div>

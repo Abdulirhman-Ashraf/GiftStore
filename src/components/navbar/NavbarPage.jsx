@@ -13,7 +13,7 @@ const NavbarPage = () => {
       <Navbar expand="lg" className=" w-100 ">
         <Container>
           <Navbar.Brand as={Link} to="/" style={{ fontWeight: "bold" }}>
-            EbraStore
+            GiftStore
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

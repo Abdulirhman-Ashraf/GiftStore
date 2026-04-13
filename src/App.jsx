@@ -9,6 +9,7 @@ import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import RequiredRole from "./context/RquiredRole.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import "./app.css";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 function App() {
   return (
     <section className="app">
@@ -40,6 +41,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/details-page" element={<DetailsPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </main>
       <Footer />

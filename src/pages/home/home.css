@@ -1,9 +1,52 @@
-.home .header{
-    background-image: url("../../assets/1.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top;
-    height:70vh ;
+.home {
     width: 100%;
-    margin-bottom: 20px;
+    overflow: hidden;
+}
+.home .service img {
+    width: 100%;
+    margin-block:30px ;
+}
+.home .header {
+  display: flex;
+  width: 400%;
+  height: 100%;
+  animation: backgroundChange 16s infinite linear  ;
+
+}
+.home .header .one,
+.home .header .two,
+.home .header .three {
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  width: 25% !important;
+  margin-bottom: 20px;
+}
+.home .header .one {
+  background-image: url("../../assets/1-cut.jpg");
+}
+.home .header .two {
+  background-image: url("../../assets/2-cut.jpg");
+}
+.home .header .three {
+  background-image: url("../../assets/3-cut.jpg");
+}
+@keyframes backgroundChange {
+0%, 20% {
+        transform: translateX(0); 
+    }
+    25%, 45% {
+        transform: translateX(-25%); 
+    }
+    50%, 70% {
+        transform: translateX(-50%); 
+    }
+    75%, 95% {
+        transform: translateX(-75%); 
+    }
+    100% {
+        transform: translateX(-75%); 
+    }
 }

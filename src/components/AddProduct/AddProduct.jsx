@@ -16,7 +16,7 @@ const ProductModal = ({ value, id, initialData }) => {
   const brandRef = useRef();
   const descriptionRef = useRef();
   const quantityRef = useRef();
-  const [imageUrl,setImageUrl] = useState();
+  const [imageUrl,setImageUrl] = useState(initialData?.imageUrl||"");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -106,9 +106,9 @@ const ProductModal = ({ value, id, initialData }) => {
               ref={priceRef}
               defaultValue={initialData?.price}
             />
-            <label htmlFor="category">Choose a Category:</label>
-            <br />
-            <select
+            {/* <label htmlFor="category">Choose a Category:</label>
+            <br /> */}
+            {/* <select
               ref={categoryRef}
               defaultValue={initialData?.category || ""}
               name="category"
@@ -124,17 +124,24 @@ const ProductModal = ({ value, id, initialData }) => {
               <option value="Books">Books</option>
               <option value="School">School</option>
               <option value="Personal Care">Personal Care</option>
-            </select>
+            </select> */}
+                    <Inputs
+              type={"text"}
+              id={"category"}
+              ref={categoryRef}
+              defaultValue={initialData?.category ||""}
+            />
             <Inputs
               type={"text"}
               id={"Brand"}
               ref={brandRef}
               defaultValue={initialData?.brand}
             />
-            <Inputs
-              type={"text"}
-              id={"Description"}
+            <label htmlFor="Description">Description</label>
+            <textarea
+              id="Description"
               ref={descriptionRef}
+              className="form-control"
               defaultValue={initialData?.description}
             />
             <Inputs

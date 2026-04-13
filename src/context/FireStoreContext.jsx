@@ -24,18 +24,13 @@ const FireStoreProvider = ({ children }) => {
   const [role, setRole] = useState(null);
   const [userName, setUserName] = useState(null);
   const colRef = useMemo(() => {
-    if (!currentUser) return null;
 
     return collection(db, `product`);
-  }, [currentUser]);
+  }, []);
 
   // realtime getDocs
   useEffect(() => {
-    if (!currentUser) {
-      setProducts([]);
-      setLoading(false);
-      return;
-    }
+
     if (!colRef) return;
 
     const q = query(colRef, orderBy("createAt"));
@@ -53,14 +48,17 @@ const FireStoreProvider = ({ children }) => {
   }, [colRef]);
   // admin check
   useEffect(() => {
-    const getUserRole = async () => {
-      const docRef = doc(db, "users", currentUser.uid);
-      const snap = await getDoc(docRef);
-      if (snap.exists()) {
-        setRole(snap.data().role);
-      }
-    };
-    getUserRole();
+    if(currentUser){
+
+      const getUserRole = async () => {
+        const docRef = doc(db, "users", currentUser.uid);
+        const snap = await getDoc(docRef);
+        if (snap.exists()) {
+          setRole(snap.data().role);
+        }
+      };
+      getUserRole();
+    }
   }, [currentUser]);
   //  Add Doc
 

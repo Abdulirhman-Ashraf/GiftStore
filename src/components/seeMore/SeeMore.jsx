@@ -3,11 +3,11 @@ import React, { useState } from "react";
 const SeeMore = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   if (text.length <= 20) {
-    return <span> {text}</span>;
+    return <span> {`${text}`}</span>;
   }
   return (
     <span>
-      {isExpanded ?  text  : text?.substring(0, 20) + "..."}
+      {isExpanded ? `${text}  `: text?.substring(0, 20) + "..."}
       <span
         onClick={() => setIsExpanded(!isExpanded)}
         style={{

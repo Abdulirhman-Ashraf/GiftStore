@@ -11,6 +11,7 @@ import {
 import Buttons from "../../components/Buttons";
 import { useState } from "react";
 import "./cart.css";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { setIsCartOpen, isCartOpen, cartItems, deleteFromCart, updateStock } =
@@ -43,8 +44,8 @@ const Cart = () => {
             border: "none",
             background: "none",
             color: "black",
-            fontSize:"16px",
-            fontWeight:"600"
+            fontSize: "16px",
+            fontWeight: "600",
           }}
         >
           Cart <FontAwesomeIcon className="cartIcon" icon={faCartShopping} />
@@ -76,7 +77,11 @@ const Cart = () => {
                     }}
                   >
                     <Card.Img
-                      style={{ width: "120px", height: "120px" ,objectFit:"cover"}}
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                        objectFit: "cover",
+                      }}
                       src={item?.imageUrl || NoImage}
                     />
                     <Card.Body
@@ -174,10 +179,13 @@ const Cart = () => {
                   )}
                 </Col>
               </Row>
-              <Buttons
-                value={"Checkout"}
-                style={{ width: "100% ", height: "50px", fontSize: "20px" }}
-              />
+              <Link to={"/checkout"}>
+                <Buttons
+                  value={"Checkout"}
+                  style={{ width: "100% ", height: "50px", fontSize: "20px" }}
+                  onClick={()=>handleClose()}
+                />
+              </Link>
             </div>
           )}
         </Offcanvas>
