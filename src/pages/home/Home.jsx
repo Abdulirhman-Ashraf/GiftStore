@@ -1,11 +1,9 @@
-import SwiperPage from "../../components/SwiperComponent/Swiper";
 import { useFireStore } from "../../context/FireStoreContext";
 import img_1 from "../../assets/service-1.jpg";
 import img_2 from "../../assets/service-3.jpg";
 import img_3 from "../../assets/service-4.jpg";
 import "./home.css";
-import { Card, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import CategoryInHome from "../../components/categoryInHome/CategoryInHome";
 const Home = () => {
   const { products } = useFireStore();
   return (
@@ -33,55 +31,10 @@ const Home = () => {
           Discover a wide range of products at unbeatable prices. Shop now and
           experience the best in quality and customer service.
         </p>
-        <h2 className="text-center my-4">Best Selles</h2>
-        <Row>
+       <CategoryInHome products={products} h2={"best sells"} dist={"shop"} />
+       <CategoryInHome products={products} h2={"Gifts For Your Lover"}  category={"valentine"}/>
+       <CategoryInHome products={products} h2={"Lovely Gifts To Your Child"}  category={"children"}/>
 
-           {products?.map((product) => (
-            <Col
-            md={3}
-            className="my-2"
-            >
-             <Link
-            to={`/details-page`}
-            state={{ product: product }}
-            style={{ textDecoration: "none", color: "inherit" }}
-            >
-            <Card
-              key={product.id}
-              style={{
-                height: "320px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "start",
-                justifyContent: "center ",
-                border: "none",
-                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-              }}
-              >
-              <Card.Img
-                variant="top"
-                src={product?.imageUrl || NoImage}
-                style={{  height: "240px",objectFit:"cover" }}
-                />
-              <Card.Body>
-                <Card.Title
-                  style={{
-                    fontSize: "15px",
-                    overflow: "hidden",
-                    height: "20px",
-                  }}
-                >
-                  {product.name}
-                </Card.Title>
-                <Card.Title style={{ fontSize: "16px" }}>
-                  {product.price}$
-                </Card.Title>
-              </Card.Body>
-            </Card>
-          </Link>
-      </Col>
-      ))}
-      </Row>
       </div>
       </section>
   );

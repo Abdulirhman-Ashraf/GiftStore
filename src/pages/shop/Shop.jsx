@@ -11,9 +11,9 @@ import {
 import { useFireStore } from "../../context/FireStoreContext";
 import Search from "../../components/search/Search";
 import NoImage from "../../assets/image-icon-front-side.jpg";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import "./shop.css";
 const Shop = () => {
   const { products } = useFireStore();
@@ -22,16 +22,20 @@ const Shop = () => {
   const [serachParam] = useSearchParams();
 
   const categoryFromUrl = serachParam.get("category");
+  const location=useLocation()
+  const categoryFromHome=location.state?.category
+  const activeCategory=categoryFromHome||categoryFromUrl
   useEffect(() => {
-    if (categoryFromUrl) {
-      const filteredProducts = products.filter(
-        (product) => product.category === categoryFromUrl,
+    if (activeCategory) {
+       const filteredProducts = products.filter(
+        (product) => product.category === activeCategory,
       );
       setDisplayedProduct(filteredProducts);
-    } else {
+    }
+     else {
       setDisplayedProduct(products);
     }
-  }, [products, categoryFromUrl]);
+  }, [products, activeCategory]);
   const removeFilter = () => {
     navigate("/shop");
   };
@@ -47,17 +51,17 @@ const Shop = () => {
           location={"shop"}
         />
 
-        {categoryFromUrl && (
+        {activeCategory && (
           <Badge onClick={() => removeFilter()} className="mb-3 ms-4 categoryLabel">
-            {categoryFromUrl} <FontAwesomeIcon icon={faX} />
+            {activeCategory} <FontAwesomeIcon icon={faX} />
           </Badge>
         )}
 
         {!displayProducts.length && <Alert variant="info">Not Found!</Alert>}
         <Row className=" m-auto" >
-          {displayProducts?.map((product) => {
+          {displayProducts?.map((product,index) => {
             return (
-              <Col  md={4}>
+              <Col  md={4} key={index}>
               
                 <Card
                   style={{
