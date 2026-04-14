@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
@@ -18,20 +18,20 @@ const Checkout = () => {
             <Col xs={12} md={6}>
               <h4 >billing & shipping address</h4>
               <Row className="my-3 " >
-                <Form.Group as={Col} controlId="formGridName">
+                <Form.Group as={Col} controlId="formGridName" > 
                   <Form.Label>name</Form.Label>
-                  <Form.Control type="text" placeholder="Name" />
+                  <Form.Control type="text" placeholder="Name" required/>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Email" />
+                  <Form.Control type="email" placeholder="Email" required/>
                 </Form.Group>
               </Row>
 
               <Form.Group className="mb-3" controlId="formGridAddress1">
                 <Form.Label>phone</Form.Label>
-                <Form.Control type="tel" placeholder="1234 Main St" />
+                <Form.Control type="tel" placeholder="1234 Main St" required/>
               </Form.Group>
               <Form.Group
                 className="mb-3"
@@ -39,18 +39,18 @@ const Checkout = () => {
                 aria-required
               >
                 <Form.Label>Address</Form.Label>
-                <Form.Control placeholder="1234 Main St" />
+                <Form.Control placeholder="1234 Main St" required/>
               </Form.Group>
 
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridCity">
                   <Form.Label>City</Form.Label>
-                  <Form.Control />
+                  <Form.Control required/>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridState" aria-required>
                   <Form.Label>State</Form.Label>
-                  <Form.Control type="text" />
+                  <Form.Control type="text" required/>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridZip">
@@ -59,9 +59,9 @@ const Checkout = () => {
                 </Form.Group>
               </Row>
 
-              <Button variant="primary" type="submit" className="checkoutBtn">
+              <button  type="submit" className="checkoutBtn">
                 Submit
-              </Button>
+              </button>
             </Col>
 
             <Col xs={12} md={6}>
@@ -74,6 +74,7 @@ const Checkout = () => {
                   value="paypal"
                   onChange={(e) => setSelectedMethod(e.target.value)}
                   className="d-none"
+                  required
                 />
                 <Form.Check.Label
                   className={`w-100 d-flex align-items-center p-3 border rounded ${selectedMethod === "paypal" ? "border-primary bg-light" : ""}`}
@@ -95,6 +96,7 @@ const Checkout = () => {
                   value="cash"
                   onChange={(e) => setSelectedMethod(e.target.value)}
                   className="d-none"
+                  required
                 />
                 <Form.Check.Label
                   className={`w-100 d-flex align-items-center p-2 border rounded ${selectedMethod === "cash" ? "border-primary bg-light" : ""}`}

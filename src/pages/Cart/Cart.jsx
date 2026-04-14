@@ -10,8 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Buttons from "../../components/Buttons";
 import { useState } from "react";
-import "./cart.css";
 import { Link } from "react-router-dom";
+import "./cart.css";
 
 const Cart = () => {
   const { setIsCartOpen, isCartOpen, cartItems, deleteFromCart, updateStock } =
@@ -106,8 +106,8 @@ const Cart = () => {
                             justifyContent: "space-between ",
                             border: "1px solid #6d5e5e4f",
                             borderRadius: "6px",
-                            width: "90px",
                             height: "30px",
+                            
                           }}
                         >
                           <Buttons
@@ -119,10 +119,13 @@ const Cart = () => {
                               }
                             }}
                             style={{
-                              width: "30px",
+                              width: "40px",
                               height: "30px",
                               fontSize: "10px",
                               border: "1px solid #0000007e ",
+                              backgroundColor: "rgb(var(--color-accent))",
+                              paddingRight:"16px",
+                              
                             }}
                           />
                           <div>{item.count}</div>
@@ -135,9 +138,10 @@ const Cart = () => {
                               }
                             }}
                             style={{
-                              width: "30px",
+                              width: "40px",
                               height: "30px",
-
+                              backgroundColor: "rgb(var(--color-accent))",
+                              paddingRight:"16px",
                               fontSize: "10px",
                               border: "1px solid #00000059 ",
                             }}
@@ -182,8 +186,17 @@ const Cart = () => {
               <Link to={"/checkout"}>
                 <Buttons
                   value={"Checkout"}
-                  style={{ width: "100% ", height: "50px", fontSize: "20px" }}
-                  onClick={()=>handleClose()}
+                  style={{
+                    width: "100%",
+                    paddingBlock: "10px",
+
+                    backgroundColor: "rgb(var(--color-bg-main))",
+                    border: "1px solid rgb(var(--color-primary))",
+                    color: "rgb(var(--color-text-dark))",
+                    fontWeight: "700",
+                    borderRadius: "40px",
+                  }}
+                  onClick={() => handleClose()}
                 />
               </Link>
             </div>

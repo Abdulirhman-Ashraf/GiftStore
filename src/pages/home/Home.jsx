@@ -31,7 +31,7 @@ const Home = () => {
           Discover a wide range of products at unbeatable prices. Shop now and
           experience the best in quality and customer service.
         </p>
-       <CategoryInHome products={products} h2={"best sells"} dist={"shop"} />
+       <CategoryInHome products={products} h2={"Best Sells"} dist={"shop"} />
        <CategoryInHome products={products} h2={"Gifts For Your Lover"}  category={"valentine"}/>
        <CategoryInHome products={products} h2={"Lovely Gifts To Your Child"}  category={"children"}/>
 

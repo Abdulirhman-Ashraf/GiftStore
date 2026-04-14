@@ -26,9 +26,12 @@
   color: rgb(var(--color-text-dark));
   font-weight: 700;
   border-radius: 40px;
+  transition: .3s ease-in-out all;
 }
 
-.checkout .checkoutBtn:hover {
+.checkout .checkoutBtn:hover ,
+.checkout .checkoutBtn:focus, 
+.checkout .checkoutBtn:active {
   background-color: rgb(var(--color-primary));
   color: rgb(var(--color-bg-main));
 }

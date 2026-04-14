@@ -1,5 +1,5 @@
 .cartPage .cartIcon{
-  color: rgb(var(--color-text-dark));
+  color: rgb(var(--color-text-dark)) ;
 }
 .offcanvas{
 position: relative;
@@ -12,6 +12,7 @@ position: relative;
   bottom: 0;
   padding-block: 10px;
 }
+
 .offcanvas .cartFooter .totalPrice {
   margin: auto;
   margin-bottom: 10px;

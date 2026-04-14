@@ -81,11 +81,13 @@ const DetailsPage = () => {
               <strong> ${product?.price}</strong>
             </div>
             <div onClick={() => handleCategory(product?.category)}>
-             <b>Category</b> : <span className="category">{product?.category}</span>
+              <b>Category</b> :{" "}
+              <span className="category">{product?.category}</span>
             </div>
             {product?.brand && <div>Brand : {product?.brand}</div>}
             <div>
-            <b>Description </b>  : <SeeMore text={product?.description || "No text"} />
+              <b>Description </b> :{" "}
+              <SeeMore text={product?.description || "No text"} />
             </div>
           </div>
           <div className="right  col-12 col-md-4">
@@ -94,6 +96,7 @@ const DetailsPage = () => {
             </div>
             <div className="stock ">
               <Buttons
+                variant={"success"}
                 disabled={isProductInCart || stockCount <= 1}
                 value={"-"}
                 onClick={() => {
@@ -104,6 +107,7 @@ const DetailsPage = () => {
               />
               <div>{stockCount}</div>
               <Buttons
+                variant={"success"}
                 value={"+"}
                 disabled={isProductInCart || stockCount >= product.quantity}
                 onClick={() => {
@@ -114,6 +118,7 @@ const DetailsPage = () => {
               />
             </div>
             <Buttons
+              variant={"success"}
               value={"Add To Cart"}
               onClick={handleAddCart}
               style={{ width: "100%" }}
