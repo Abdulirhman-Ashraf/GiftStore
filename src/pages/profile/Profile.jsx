@@ -16,9 +16,7 @@ const Profile = () => {
   const myOrders = orderItems.filter(
     (items) => items.userId === currentUser?.uid,
   );
-  const slicedProduct = 6;
-  const startIndex = (currentPage - 1) * slicedProduct;
-  const totalPages = Math.ceil(myOrders.length / slicedProduct);
+
   return (
     <div className="container profile">
       <h3 className="my-4">Welcome: {userName}</h3>
@@ -31,52 +29,46 @@ const Profile = () => {
       />
 
       <h3 className="text-center">Orders</h3>
-      {!myOrders.length ? <Alert className="text-center">No Orders</Alert>:
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Product</th>
-            <td>Date/Time</td>
-            <th>Price</th>
-            <th>Image</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {myOrders
-            ?.slice(startIndex, startIndex + slicedProduct)
-            .map((items) =>
-              items.items?.map((item, index) => (
-                <tr key={item.id}>
-                  <td>{startIndex + index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>
-                    <div style={{ fontWeight: "bold" }}>
-                      {items.createAt?.toDate().toLocaleDateString("en-EG")}
-                    </div>
-                    <div style={{ fontSize: "12px", color: "gray" }}>
-                      {items.createAt?.toDate().toLocaleTimeString("en-EG")}
-                    </div>
-                  </td>
-                  <td>{item.price + "$"}</td>
-                  <td>
-                    <img src={item.imageUrl} alt="" />
-                  </td>
-                  <td>
-                    <div>{items.status}</div>
-                  </td>
-                </tr>
-              )),
-            )}
-        </tbody>
-      </Table>
-    }
-      <PaginationCom
-        totalPages={totalPages}
-        active={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {!myOrders.length ? (
+        <Alert className="text-center">No Orders</Alert>
+      ) : (
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <td>Date/Time</td>
+              <th>Price</th>
+              <th>Image</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {myOrders.map((items) =>
+                items.items?.map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{item.name}</td>
+                    <td>
+                      <div style={{ fontWeight: "bold" }}>
+                        {items.createAt?.toDate().toLocaleDateString("en-EG")}
+                      </div>
+                      <div style={{ fontSize: "12px", color: "gray" }}>
+                        {items.createAt?.toDate().toLocaleTimeString("en-EG")}
+                      </div>
+                    </td>
+                    <td>{item.price + "$"}</td>
+                    <td>
+                      <img src={item.imageUrl} alt="" />
+                    </td>
+                    <td>
+                      <div>{items.status}</div>
+                    </td>
+                  </tr>
+                )),
+              )}
+          </tbody>
+        </Table>
+      )}
+   
     </div>
   );
 };
