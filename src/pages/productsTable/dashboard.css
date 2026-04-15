@@ -1,0 +1,17 @@
+.profile img{
+    width: 60px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.profile Table{
+    text-transform: capitalize;
+
+}
+.profile Table tr{
+transition: all ease-in .2s;
+
+}
+.profile Table tbody tr:hover{
+    transform: scale(1.04);
+}

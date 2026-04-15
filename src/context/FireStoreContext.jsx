@@ -1,10 +1,10 @@
 import {
   addDoc,
   collection,
-  collectionGroup,
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -15,6 +15,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "./AuthContext";
 const FireStoreContext = createContext();
+const orderColRef = collection(db, "order");
 
 const FireStoreProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -23,6 +24,7 @@ const FireStoreProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [role, setRole] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [orderItems, setOrderItems] = useState(null);
   const colRef = useMemo(() => {
     return collection(db, `product`);
   }, []);
@@ -103,6 +105,20 @@ const FireStoreProvider = ({ children }) => {
     const docRef = doc(colCartRef, id);
     return await deleteDoc(docRef);
   };
+  // clear cart
+  const cleanCart = async () => {
+    if (!cartItems || cartItems.length === 0) return;
+    try {
+      const snapshot = await getDocs(colCartRef);
+      const deletePromises = snapshot.docs.map((doc) =>
+        deleteDoc(doc.ref)
+      );
+      await Promise.all(deletePromises);
+      console.log("Cart cleaned successfully");
+    } catch (error) {
+      console.error("Error cleaning cart:", error);
+    }
+  };
   //get from stock
   // update stock in cart
   const updateStock = async (id, updateDate) => {
@@ -130,11 +146,34 @@ const FireStoreProvider = ({ children }) => {
     };
     fetchUserName();
   }, [currentUser]);
-  const orderColRef = collection(db, "order");
   //  order add function   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   const addOrder = async (userOrder) => {
-    await addDoc(orderColRef, { ...userOrder, createAt: serverTimestamp() });
+    await addDoc(orderColRef, {
+      ...userOrder,
+      createAt: serverTimestamp(),
+      status: "pending",
+    });
   };
+  // update orders collection
+  const updateOrders = async (id, {status}) => {
+    const docOrderRef = doc(orderColRef, id);
+    return await updateDoc(docOrderRef, { status: status });
+  };
+  // order get function
+  useEffect(() => {
+    if (!orderColRef) return;
+    const qOrder = query(orderColRef, orderBy("createAt"));
+    const unsubOrder = onSnapshot(qOrder, (snapshot) => {
+      const orderList = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setOrderItems(orderList);
+    });
+    return () => {
+      unsubOrder();
+    };
+  }, [orderColRef]);
   return (
     <FireStoreContext.Provider
       value={{
@@ -150,14 +189,16 @@ const FireStoreProvider = ({ children }) => {
         role,
         updateStock,
         userName,
-        addOrder
+        addOrder,
+        orderItems,
+        updateOrders,
+        cleanCart,
       }}
     >
       {loading ? <h2 className="text-center">Loading...</h2> : children}
     </FireStoreContext.Provider>
   );
 };
-
 export const useFireStore = () => {
   return useContext(FireStoreContext);
 };

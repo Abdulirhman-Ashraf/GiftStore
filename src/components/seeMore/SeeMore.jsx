@@ -7,7 +7,7 @@ const SeeMore = ({ text }) => {
   }
   return (
     <span>
-      {isExpanded ? `${text}  `: text?.substring(0, 20) + "..."}
+      {isExpanded ? `${text}  `: text?.substring(0, 70) + "..."}
       <span
         onClick={() => setIsExpanded(!isExpanded)}
         style={{

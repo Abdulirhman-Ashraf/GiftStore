@@ -10,8 +10,11 @@ const Checkout = () => {
   const [selectedMethod, setSelectedMethod] = useState("");
   const [error, setError] = useState();
   const location = useLocation();
-  const userOrder = location.state?.cartItems;
-  const { addOrder } = useFireStore();
+  const { cartItems, totalPrice } = location.state || {
+    cartItems: [],
+    totalPrice: 0,
+  };
+  const { addOrder, update ,cleanCart} = useFireStore();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -33,18 +36,28 @@ const Checkout = () => {
     if (selectedMethod === "") {
       alert("select payment method");
       return;
+
     }
     try {
       await addOrder({
-        items: userOrder,
+        items: cartItems,
+        totalPrice: totalPrice,
         shippingData: formData,
         paymentMethod: selectedMethod,
         userId: currentUser?.uid,
       });
+      const updatePromises = cartItems.map((item) => {
+        const newStock = item.quantity - item.count;
+        return update(item.productId, { quantity: newStock });
+      });
+      await Promise.all(updatePromises);
+      await cleanCart();
       alert("Order success!");
       navigate("/profile");
     } catch (error) {
       setError(error);
+      console.log(error)
+      console.log(cartItems)
     }
   };
   return (

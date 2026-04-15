@@ -9,7 +9,7 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import Buttons from "../../components/Buttons";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./cart.css";
 
@@ -32,7 +32,9 @@ const Cart = () => {
       setLoadingId(null);
     }
   };
-
+  const totalPrice = useMemo(() => {
+  return  cartItems.reduce((total, item) => total + item.price * item.count, 0);
+  }, [cartItems]);
   return (
     <div className="cartPage">
       <Container>
@@ -79,8 +81,8 @@ const Cart = () => {
                     <Card.Img
                       style={{
                         width: "120px",
-                        height: "120px",
                         objectFit: "cover",
+                        height:"140px"
                       }}
                       src={item?.imageUrl || NoImage}
                     />
@@ -103,11 +105,11 @@ const Cart = () => {
                           style={{
                             display: "flex ",
                             alignItems: "center ",
+                            width:"120px",
                             justifyContent: "space-between ",
                             border: "1px solid #6d5e5e4f",
                             borderRadius: "6px",
                             height: "30px",
-                            
                           }}
                         >
                           <Buttons
@@ -124,8 +126,7 @@ const Cart = () => {
                               fontSize: "10px",
                               border: "1px solid #0000007e ",
                               backgroundColor: "rgb(var(--color-accent))",
-                              paddingRight:"16px",
-                              
+                              paddingRight: "16px",
                             }}
                           />
                           <div>{item.count}</div>
@@ -141,7 +142,7 @@ const Cart = () => {
                               width: "40px",
                               height: "30px",
                               backgroundColor: "rgb(var(--color-accent))",
-                              paddingRight:"16px",
+                              paddingRight: "16px",
                               fontSize: "10px",
                               border: "1px solid #00000059 ",
                             }}
@@ -177,13 +178,10 @@ const Cart = () => {
                 <Col md={9}>Subtotal</Col>
                 <Col md={3}>
                   $
-                  {cartItems.reduce(
-                    (total, item) => total + item.price * item.count,
-                    0,
-                  )}
+                 {totalPrice}
                 </Col>
               </Row>
-              <Link to={"/checkout"} state={{cartItems:cartItems}}>
+              <Link to={"/checkout"} state={{ cartItems: cartItems,totalPrice:totalPrice }}>
                 <Buttons
                   value={"Checkout"}
                   style={{

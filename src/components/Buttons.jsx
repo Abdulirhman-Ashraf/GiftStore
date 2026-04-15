@@ -1,6 +1,6 @@
 import { Button, Spinner } from "react-bootstrap";
 
-const Buttons = ({ variant, value, loading, disabled, onClick, style }) => {
+const Buttons = ({ variant, value, loading,active, disabled, onClick, style }) => {
   return (
     <Button
       variant={variant}
@@ -8,6 +8,7 @@ const Buttons = ({ variant, value, loading, disabled, onClick, style }) => {
       disabled={loading || disabled}
       onClick={onClick}
       style={style}
+      active={active}
     >
       {loading ? (
         <Spinner style={{ width: "15px", height: "15px" }}></Spinner>

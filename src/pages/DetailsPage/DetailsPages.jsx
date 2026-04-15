@@ -105,11 +105,15 @@ const DetailsPage = () => {
                   }
                 }}
               />
-              <div>{stockCount}</div>
+              <div>{!product.quantity ? "Out Of Stock" : stockCount}</div>
               <Buttons
                 variant={"success"}
                 value={"+"}
-                disabled={isProductInCart || stockCount >= product.quantity}
+                disabled={
+                  isProductInCart ||
+                  stockCount >= product.quantity ||
+                  !product.quantity
+                }
                 onClick={() => {
                   if (stockCount < product.quantity) {
                     setStockCount((prev) => prev + 1);
@@ -122,7 +126,11 @@ const DetailsPage = () => {
               value={"Add To Cart"}
               onClick={handleAddCart}
               style={{ width: "100%" }}
-              disabled={loading}
+              disabled={
+                loading||
+             
+                !product.quantity
+              }
             />
           </div>
         </div>
