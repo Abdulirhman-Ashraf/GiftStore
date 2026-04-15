@@ -1,37 +1,98 @@
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
 import "./checkout.css";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { useFireStore } from "../../context/FireStoreContext";
 const Checkout = () => {
   const [selectedMethod, setSelectedMethod] = useState("");
-  const handleSubmit = (e) => {
+  const [error, setError] = useState();
+  const location = useLocation();
+  const userOrder = location.state?.cartItems;
+  const { addOrder } = useFireStore();
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
+  // handle Form
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  // handlesubmit
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (selectedMethod === "") {
+      alert("select payment method");
+      return;
+    }
+    try {
+      await addOrder({
+        items: userOrder,
+        shippingData: formData,
+        paymentMethod: selectedMethod,
+        userId: currentUser?.uid,
+      });
+      alert("Order success!");
+      navigate("/profile");
+    } catch (error) {
+      setError(error);
+    }
   };
   return (
     <section className="checkout">
       <Container>
-        <h1 style={{ fontWeight: "bold" }} className="mb-4">checkout</h1>
+        <h1 style={{ fontWeight: "bold" }} className="mb-4">
+          checkout
+        </h1>
         <Form onSubmit={handleSubmit} className="form">
           <Row className="d-flex align-items-start">
             <Col xs={12} md={6}>
-              <h4 >billing & shipping address</h4>
-              <Row className="my-3 " >
-                <Form.Group as={Col} controlId="formGridName" > 
+              <h4>billing & shipping address</h4>
+              <Row className="my-3 ">
+                <Form.Group as={Col} controlId="formGridName">
                   <Form.Label>name</Form.Label>
-                  <Form.Control type="text" placeholder="Name" required/>
+                  <Form.Control
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={formData.name}
+                    required
+                    onChange={handleChange}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Email" required/>
+                  <Form.Control
+                    type="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    name="email"
+                    onChange={handleChange}
+                    required
+                  />
                 </Form.Group>
               </Row>
 
               <Form.Group className="mb-3" controlId="formGridAddress1">
                 <Form.Label>phone</Form.Label>
-                <Form.Control type="tel" placeholder="1234 Main St" required/>
+                <Form.Control
+                  type="tel"
+                  placeholder="1234 Main St"
+                  name="phone"
+                  required
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
               </Form.Group>
               <Form.Group
                 className="mb-3"
@@ -39,27 +100,48 @@ const Checkout = () => {
                 aria-required
               >
                 <Form.Label>Address</Form.Label>
-                <Form.Control placeholder="1234 Main St" required/>
+                <Form.Control
+                  placeholder="1234 Main St"
+                  required
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                />
               </Form.Group>
 
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridCity">
                   <Form.Label>City</Form.Label>
-                  <Form.Control required/>
+                  <Form.Control
+                    required
+                    value={formData.city}
+                    name="city"
+                    onChange={handleChange}
+                  />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridState" aria-required>
+                <Form.Group as={Col} controlId="formGridState">
                   <Form.Label>State</Form.Label>
-                  <Form.Control type="text" required/>
+                  <Form.Control
+                    type="text"
+                    required
+                    value={formData.state}
+                    name="state"
+                    onChange={handleChange}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridZip">
                   <Form.Label>Zip</Form.Label>
-                  <Form.Control />
+                  <Form.Control
+                    value={formData.zip}
+                    name="zip"
+                    onChange={handleChange}
+                  />
                 </Form.Group>
               </Row>
 
-              <button  type="submit" className="checkoutBtn">
+              <button type="submit" className="checkoutBtn">
                 Submit
               </button>
             </Col>
@@ -74,7 +156,6 @@ const Checkout = () => {
                   value="paypal"
                   onChange={(e) => setSelectedMethod(e.target.value)}
                   className="d-none"
-                  required
                 />
                 <Form.Check.Label
                   className={`w-100 d-flex align-items-center p-3 border rounded ${selectedMethod === "paypal" ? "border-primary bg-light" : ""}`}
@@ -96,7 +177,6 @@ const Checkout = () => {
                   value="cash"
                   onChange={(e) => setSelectedMethod(e.target.value)}
                   className="d-none"
-                  required
                 />
                 <Form.Check.Label
                   className={`w-100 d-flex align-items-center p-2 border rounded ${selectedMethod === "cash" ? "border-primary bg-light" : ""}`}

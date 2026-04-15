@@ -24,13 +24,11 @@ const FireStoreProvider = ({ children }) => {
   const [role, setRole] = useState(null);
   const [userName, setUserName] = useState(null);
   const colRef = useMemo(() => {
-
     return collection(db, `product`);
   }, []);
 
   // realtime getDocs
   useEffect(() => {
-
     if (!colRef) return;
 
     const q = query(colRef, orderBy("createAt"));
@@ -48,8 +46,7 @@ const FireStoreProvider = ({ children }) => {
   }, [colRef]);
   // admin check
   useEffect(() => {
-    if(currentUser){
-
+    if (currentUser) {
       const getUserRole = async () => {
         const docRef = doc(db, "users", currentUser.uid);
         const snap = await getDoc(docRef);
@@ -65,7 +62,7 @@ const FireStoreProvider = ({ children }) => {
   const addToStore = async (productData) => {
     await addDoc(colRef, { ...productData, createAt: serverTimestamp() });
   };
-  
+
   // Delete Doc
 
   const handleDelete = async (id) => {
@@ -133,6 +130,11 @@ const FireStoreProvider = ({ children }) => {
     };
     fetchUserName();
   }, [currentUser]);
+  const orderColRef = collection(db, "order");
+  //  order add function   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  const addOrder = async (userOrder) => {
+    await addDoc(orderColRef, { ...userOrder, createAt: serverTimestamp() });
+  };
   return (
     <FireStoreContext.Provider
       value={{
@@ -147,7 +149,8 @@ const FireStoreProvider = ({ children }) => {
         setIsCartOpen,
         role,
         updateStock,
-        userName
+        userName,
+        addOrder
       }}
     >
       {loading ? <h2 className="text-center">Loading...</h2> : children}

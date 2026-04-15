@@ -183,7 +183,7 @@ const Cart = () => {
                   )}
                 </Col>
               </Row>
-              <Link to={"/checkout"}>
+              <Link to={"/checkout"} state={{cartItems:cartItems}}>
                 <Buttons
                   value={"Checkout"}
                   style={{
