@@ -1,4 +1,4 @@
-import { Alert, Form } from "react-bootstrap";
+import { Alert, Container, Form } from "react-bootstrap";
 import Inputs from "../../components/inputs/Inputs";
 import Buttons from "../../components/Buttons";
 import { useAuth } from "../../context/AuthContext";
@@ -39,29 +39,31 @@ const Signup = () => {
   };
   return (
     <div className="signup">
-      <Form className="w-50 m-auto pt-5" onSubmit={handleSubmit}>
-        {/* email */}
-        <Inputs type={"text"} id={"Name"} ref={nameRef} />
+      <Container>
+        <Form className=" m-auto pt-5" onSubmit={handleSubmit}>
+          {/* email */}
+          <Inputs type={"text"} id={"Name"} ref={nameRef} />
 
-        <Inputs type={"email"} id={"Email"} ref={emailRef} />
+          <Inputs type={"email"} id={"Email"} ref={emailRef} />
 
-        {/* password */}
+          {/* password */}
 
-        <Inputs id={"Password"} type={"password"} ref={passwordRef} />
-        {/*Confirm password */}
+          <Inputs id={"Password"} type={"password"} ref={passwordRef} />
+          {/*Confirm password */}
 
-        <Inputs
-          id={"Confirm Password"}
-          type={"password"}
-          ref={confirmPasswordRef}
-        />
+          <Inputs
+            id={"Confirm Password"}
+            type={"password"}
+            ref={confirmPasswordRef}
+          />
 
-        {error && <Alert variant="danger"> {error}</Alert>}
-        <Buttons variant="primary" value="Sign up" loading={loading} />
-        <div>
-          Already Have an account ? <Link to={"/login"}>Login</Link>
-        </div>
-      </Form>
+          {error && <Alert variant="danger"> {error}</Alert>}
+          <Buttons variant="primary" value="Sign up" loading={loading} />
+          <div>
+            Already Have an account ? <Link to={"/login"}>Login</Link>
+          </div>
+        </Form>
+      </Container>
     </div>
   );
 };

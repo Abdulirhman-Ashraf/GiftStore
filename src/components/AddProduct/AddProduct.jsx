@@ -67,7 +67,6 @@ const ProductModal = ({ value, id, initialData, icon, isUpdate }) => {
         category: categoryRef.current.value,
         quantity: Number(quantityRef.current.value),
         description: descriptionRef.current.value,
-        brand: brandRef.current.value,
         imageUrl: imageUrl,
       };
       await update(id, updatedDate);
@@ -106,7 +105,9 @@ const ProductModal = ({ value, id, initialData, icon, isUpdate }) => {
           <Modal.Title> {isUpdate?"Update Product" :"New Product"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form id="productForm" onSubmit={(e)=>{
+            e.preventDefault()
+            handleSubmit()}} >
             <Inputs
               type={"text"}
               id={"Name"}
@@ -126,18 +127,14 @@ const ProductModal = ({ value, id, initialData, icon, isUpdate }) => {
               ref={categoryRef}
               defaultValue={initialData?.category || ""}
             />
-            <Inputs
-              type={"text"}
-              id={"Brand"}
-              ref={brandRef}
-              defaultValue={initialData?.brand}
-            />
+         
             <label htmlFor="Description">Description</label>
             <textarea
               id="Description"
               ref={descriptionRef}
               className="form-control"
               defaultValue={initialData?.description}
+              required
             />
             <Inputs
               type={"number"}
@@ -145,14 +142,16 @@ const ProductModal = ({ value, id, initialData, icon, isUpdate }) => {
               ref={quantityRef}
               defaultValue={initialData?.quantity}
             />
-            <Inputs type={"file"} id={"image"} onChange={handleFileUpload} />
+            <Inputs type={"file"} id={"image"} onChange={handleFileUpload} 
+            
+            isRequired={isUpdate?false:true} />
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit} disabled={loading}>
+          <Button variant="primary" disabled={loading} type="submit" form="productForm">
             {loading ? <Spinner></Spinner> : "Save Changes"}
           </Button>
         </Modal.Footer>

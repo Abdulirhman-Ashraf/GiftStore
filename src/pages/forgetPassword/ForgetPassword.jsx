@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Inputs from "../../components/inputs/Inputs";
 import Buttons from "../../components/Buttons";
-import { Alert, Form } from "react-bootstrap";
+import { Alert, Container, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 const ForgetPassword = () => {
@@ -18,8 +18,8 @@ const ForgetPassword = () => {
       await ResetPassword(emailRef.current.value);
       setMessage("Check Your Inbox");
       setTimeout(() => {
-        navigate('/login')
-      }, 1000); 
+        navigate("/login");
+      }, 1000);
     } catch (err) {
       setError(err?.message || "Something is wrong");
     } finally {
@@ -28,21 +28,23 @@ const ForgetPassword = () => {
   };
   return (
     <div className="forgetPasswod ">
-      <Form className="w-50 m-auto pt-5" onSubmit={handleSubmit}>
-        {/* email */}
-        {message && <Alert variant="success">{message}</Alert>}
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Inputs type={"email"} id={"Email"} ref={emailRef} />
+      <Container>
+        <Form className=" m-auto pt-5" onSubmit={handleSubmit}>
+          {/* email */}
+          {message && <Alert variant="success">{message}</Alert>}
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Inputs type={"email"} id={"Email"} ref={emailRef} />
 
-        <Buttons value={"Reset Password"} loading={loading} />
+          <Buttons value={"Reset Password"} loading={loading} />
 
-        <div>
-          Need an account ? <Link to={"/signup"}>Signup</Link>
-        </div>
-        <div>
-          Already have an account? <Link to={"/login"}>Login</Link>
-        </div>
-      </Form>
+          <div>
+            Need an account ? <Link to={"/signup"}>Signup</Link>
+          </div>
+          <div>
+            Already have an account? <Link to={"/login"}>Login</Link>
+          </div>
+        </Form>
+      </Container>
     </div>
   );
 };

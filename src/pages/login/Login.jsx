@@ -1,4 +1,4 @@
-import { Alert, Form } from "react-bootstrap";
+import { Alert, Container, Form } from "react-bootstrap";
 import Buttons from "../../components/Buttons";
 import Inputs from "../../components/inputs/Inputs";
 import { useRef, useState } from "react";
@@ -27,7 +27,9 @@ const Login = () => {
   };
   return (
     <div className="login">
-      <Form className="w-50 m-auto pt-5" onSubmit={handleSubmit}>
+      <Container>
+
+      <Form className=" m-auto pt-5" onSubmit={handleSubmit}>
         <Alert variant="info" style={{fontWeight:"bold"}}>For Admin Dashboard <br /> Email : admin@example.com & password : 123456</Alert>
         {/* email */}
         <Inputs type={"email"} id={"Email"} ref={emailRef} />
@@ -40,6 +42,7 @@ const Login = () => {
         <div>Need an account ? <Link to={'/signup'}>Signup</Link></div>
         <div>Forgot Your Password ? <Link to={'/forget-password'}>Reset Password</Link></div>
       </Form>
+      </Container>
     </div>
   );
 };
