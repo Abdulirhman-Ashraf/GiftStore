@@ -77,7 +77,7 @@ const Shop = () => {
             ?.slice(startIndex,startIndex + slicedProduct)
             .map((product, index) => {
               return (
-                <Col md={4} key={index}>
+                <Col md={4} xs={6} key={index}>
                   <Card
                     style={{
                       width: "100%",

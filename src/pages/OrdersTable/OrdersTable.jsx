@@ -16,7 +16,7 @@ const OrdersTable = ({ filteredOrders }) => {
   };
   return (
     <div className="orderTable">
-      <Table striped bordered hover>
+      <Table responsive bordered striped hover>
         <thead>
           <tr>
             <th>#</th>
