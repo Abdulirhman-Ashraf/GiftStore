@@ -44,6 +44,9 @@ const NavbarPage = () => {
             {currentUser && (
               <>
                 <div className="d-flex align-items-center cartBox">
+                  <span className="cartLink">
+                    {cartItems.length>0 &&
+                    
                   <Badge
                     bg="danger"
                     pill
@@ -52,7 +55,9 @@ const NavbarPage = () => {
                   >
                     {cartItems.length}
                   </Badge>
-                  <Cart />
+                    }
+                    <Cart />
+                  </span>
                 </div>
               </>
             )}

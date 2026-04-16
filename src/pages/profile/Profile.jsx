@@ -32,7 +32,7 @@ const Profile = () => {
       {!myOrders.length ? (
         <Alert className="text-center">No Orders</Alert>
       ) : (
-        <Table striped bordered hover>
+        <Table responsive bordered striped hover >
           <thead>
             <tr>
               <th>Product</th>

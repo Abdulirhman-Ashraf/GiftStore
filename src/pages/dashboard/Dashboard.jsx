@@ -4,11 +4,12 @@ import ProductModal from "../../components/AddProduct/AddProduct";
 import Search from "../../components/search/Search";
 import { useEffect, useState } from "react";
 
-import "./dashboard.css";
 import ProductsTable from "../productsTable/ProductsTable";
 import OrdersTable from "../OrdersTable/OrdersTable";
 import Buttons from "../../components/Buttons";
 import OrdersTableSearch from "../../components/OrdersTableSearch/OrdersTableSearch";
+import "./dashboard.css";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = () => {
   const { products } = useFireStore();
@@ -29,8 +30,8 @@ const Dashboard = () => {
   return (
     <>
       <div className="container profile">
-        <div className="text-center mt-5">
-          {<ProductModal value={"New Product"} />}
+        <div className="text-center mt-5 mb-3">
+          {<ProductModal value={"New Product"} icon={faSquarePlus }/>}
         </div>
         {currentTable === "products" ? (
           <Search
@@ -42,21 +43,21 @@ const Dashboard = () => {
           <OrdersTableSearch setFilteredOrders={setFiltedOrders} />
         )}
 
-        <Row className="my-3">
-          <Col>
+        <Row className="my-3 ">
+          <Col xs={12} md={6} className="mb-2 mx-auto">
             <Buttons
               variant={"success"}
               value={"Products"}
-              active={currentTable === "products" }
+              active={currentTable === "products"}
               onClick={() => setCurrentTable("products")}
               style={{ width: "100%", paddingBlock: "10px" }}
             />
           </Col>
-          <Col>
+          <Col xs={12} md={6}>
             <Buttons
               variant={"success"}
               value={"Orders"}
-              active={currentTable === "orders" }
+              active={currentTable === "orders"}
               onClick={() => setCurrentTable("orders")}
               style={{ width: "100%", paddingBlock: "10px" }}
             />

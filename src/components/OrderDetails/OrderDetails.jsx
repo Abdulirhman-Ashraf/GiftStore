@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Holder from "../holder/Holder";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faCircleInfo,
+} from "@fortawesome/free-solid-svg-icons";
 
 function OrderDetails({ Details }) {
   const [show, setShow] = useState(false);
@@ -17,8 +23,13 @@ function OrderDetails({ Details }) {
 
   return (
     <>
-      <Button variant="primary"  onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow}>
         Details
+        {window.innerWidth > 500 && (
+          <span className="ms-2 ">
+            <FontAwesomeIcon icon={faCircleInfo} />
+          </span>
+        )}
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -66,15 +77,12 @@ function OrderDetails({ Details }) {
               />
               <Holder
                 label={"Time"}
-                value= {Details.createAt.toDate().toLocaleTimeString("en-EG", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                value={Details.createAt.toDate().toLocaleTimeString("en-EG", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               />
-              <Holder
-                label={"Status"}
-                value= {Details.status}
-              />
+              <Holder label={"Status"} value={Details.status} />
             </div>
           )}
         </Modal.Body>
@@ -87,6 +95,7 @@ function OrderDetails({ Details }) {
             onClick={handlePrev}
             disabled={currentPage === 1 ? true : false}
           >
+            <FontAwesomeIcon icon={faAngleLeft} />
             Prev
           </Button>
           <Button
@@ -94,7 +103,7 @@ function OrderDetails({ Details }) {
             onClick={handleNext}
             disabled={currentPage === 3 ? true : false}
           >
-            Next
+            Next <FontAwesomeIcon icon={faAngleRight} />
           </Button>
         </Modal.Footer>
       </Modal>

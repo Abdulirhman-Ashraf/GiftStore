@@ -1,8 +1,10 @@
 .search {
   margin: auto !important;
+    width: 100%;
+
 }
 .search Form{
-  
+  width: 100%;
 margin: auto !important;
 }
 .search .form-select {

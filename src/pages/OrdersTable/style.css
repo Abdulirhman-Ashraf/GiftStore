@@ -1,0 +1,8 @@
+.orderTable table tr th:first-child ,
+.orderTable table tr td:first-child{
+    min-width:20px !important;
+}
+.orderTable table tr th ,
+.orderTable table tr td{
+    min-width:125px !important;
+}

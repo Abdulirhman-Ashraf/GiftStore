@@ -1,6 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Spinner } from "react-bootstrap";
 
-const Buttons = ({ variant, value, loading,active, disabled, onClick, style }) => {
+const Buttons = ({ variant, value, icon,loading,active, disabled, onClick, style }) => {
   return (
     <Button
       variant={variant}
@@ -13,7 +14,13 @@ const Buttons = ({ variant, value, loading,active, disabled, onClick, style }) =
       {loading ? (
         <Spinner style={{ width: "15px", height: "15px" }}></Spinner>
       ) : (
-        value
+        <>
+        {value}
+      {
+
+      icon&&<FontAwesomeIcon icon={icon} />
+      } 
+        </>
       )}
     </Button>
   );

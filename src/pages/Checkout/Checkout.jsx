@@ -2,10 +2,10 @@ import { Alert, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
-import "./checkout.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useFireStore } from "../../context/FireStoreContext";
+import "./checkout.css";
 const Checkout = () => {
   const [selectedMethod, setSelectedMethod] = useState("");
   const [error, setError] = useState();
@@ -14,7 +14,7 @@ const Checkout = () => {
     cartItems: [],
     totalPrice: 0,
   };
-  const { addOrder, update ,cleanCart} = useFireStore();
+  const { addOrder, update, cleanCart } = useFireStore();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -36,7 +36,6 @@ const Checkout = () => {
     if (selectedMethod === "") {
       alert("select payment method");
       return;
-
     }
     try {
       await addOrder({
@@ -56,8 +55,8 @@ const Checkout = () => {
       navigate("/profile");
     } catch (error) {
       setError(error);
-      console.log(error)
-      console.log(cartItems)
+      console.log(error);
+      console.log(cartItems);
     }
   };
   return (
@@ -153,60 +152,65 @@ const Checkout = () => {
                   />
                 </Form.Group>
               </Row>
-
-              <button type="submit" className="checkoutBtn">
-                Submit
-              </button>
             </Col>
 
             <Col xs={12} md={6}>
               <h4>payment details</h4>
-
-              <Form.Check type="radio" id="paypal" className="mt-3 p-0">
-                <Form.Check.Input
-                  type="radio"
-                  name="payment_method"
-                  value="paypal"
-                  onChange={(e) => setSelectedMethod(e.target.value)}
-                  className="d-none"
-                />
-                <Form.Check.Label
-                  className={`w-100 d-flex align-items-center p-3 border rounded ${selectedMethod === "paypal" ? "border-primary bg-light" : ""}`}
-                  style={{ cursor: "pointer", transition: "all 0.2s ease" }}
-                >
-                  <div className="ms-3 fs-2"> </div>
-                  <div className="d-flex flex-column">
-                    <span className="fw-bold text-dark">(PayPal)</span>
-                  </div>
-                  {selectedMethod === "paypal" && (
-                    <span className="me-auto text-primary fs-4">✔</span>
-                  )}
-                </Form.Check.Label>
-              </Form.Check>
-              <Form.Check type="radio" id="cash" className="mt-4 p-0">
-                <Form.Check.Input
-                  type="radio"
-                  name="payment_method"
-                  value="cash"
-                  onChange={(e) => setSelectedMethod(e.target.value)}
-                  className="d-none"
-                />
-                <Form.Check.Label
-                  className={`w-100 d-flex align-items-center p-2 border rounded ${selectedMethod === "cash" ? "border-primary bg-light" : ""}`}
-                  style={{ cursor: "pointer", transition: "all 0.2s ease" }}
-                >
-                  <div className="ms-3 fs-2">
-                    <FontAwesomeIcon icon={faWallet} />
-                  </div>
-                  <div className="d-flex flex-column">
-                    <span className="fw-bold text-dark">(Cash)</span>
-                  </div>
-                  {selectedMethod === "cash" && (
-                    <span className="me-auto text-primary fs-4">✔</span>
-                  )}
-                </Form.Check.Label>
-              </Form.Check>
+              <Row className="d-flex align-items-center">
+                <Col xs={6} md={12}>
+                  <Form.Check type="radio" id="paypal" className=" p-0">
+                    <Form.Check.Input
+                      type="radio"
+                      name="payment_method"
+                      value="paypal"
+                      onChange={(e) => setSelectedMethod(e.target.value)}
+                      className="d-none"
+                    />
+                    <Form.Check.Label
+                      className={` d-flex align-items-center p-3 border rounded ${selectedMethod === "paypal" ? "border-primary bg-light" : ""}`}
+                      style={{ cursor: "pointer", transition: "all 0.2s ease" }}
+                    >
+                      <div className="ms-3 fs-2"> </div>
+                      <div className="d-flex flex-column">
+                        <span className="fw-bold text-dark">(PayPal)</span>
+                      </div>
+                      {selectedMethod === "paypal" && (
+                        <span className="me-auto text-primary fs-4">✔</span>
+                      )}
+                    </Form.Check.Label>
+                  </Form.Check>
+                </Col>
+                <Col xs={6} md={12}>
+                  <Form.Check type="radio" id="cash" className=" p-0">
+                    <Form.Check.Input
+                      type="radio"
+                      name="payment_method"
+                      value="cash"
+                      onChange={(e) => setSelectedMethod(e.target.value)}
+                      className="d-none"
+                    />
+                    <Form.Check.Label
+                      className={` d-flex align-items-center p-2 border rounded ${selectedMethod === "cash" ? "border-primary bg-light" : ""}`}
+                      style={{ cursor: "pointer", transition: "all 0.2s ease" }}
+                    >
+                      <div className="ms-2 fs-1">
+                        <FontAwesomeIcon icon={faWallet} />
+                      </div>
+                      <div className="d-flex flex-column">
+                        <span className="fw-bold text-dark">(Cash)</span>
+                      </div>
+                      {selectedMethod === "cash" && (
+                        <span className="me-auto text-primary fs-4">✔</span>
+                      )}
+                    </Form.Check.Label>
+                  </Form.Check>
+                </Col>
+              </Row>
             </Col>
+
+            <button type="submit" className="checkoutBtn">
+              Submit
+            </button>
           </Row>
         </Form>
       </Container>

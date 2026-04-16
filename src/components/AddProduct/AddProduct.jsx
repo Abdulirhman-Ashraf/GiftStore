@@ -5,18 +5,19 @@ import Modal from "react-bootstrap/Modal";
 import Inputs from "../inputs/Inputs";
 import { Form, Spinner } from "react-bootstrap";
 import { useFireStore } from "../../context/FireStoreContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ProductModal = ({ value, id, initialData }) => {
+const ProductModal = ({ value, id, initialData, icon, isUpdate }) => {
   const { addToStore, update } = useFireStore();
   const [show, setShow] = useState(false);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const nameRef = useRef();
   const priceRef = useRef();
   const categoryRef = useRef();
   const brandRef = useRef();
   const descriptionRef = useRef();
   const quantityRef = useRef();
-  const [imageUrl,setImageUrl] = useState(initialData?.imageUrl||"");
+  const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || "");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,7 +31,7 @@ const ProductModal = ({ value, id, initialData }) => {
         quantity: Number(quantityRef.current.value),
         description: descriptionRef.current.value,
         brand: brandRef.current.value,
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
       };
       await addToStore(productData);
       handleClose();
@@ -54,8 +55,8 @@ const ProductModal = ({ value, id, initialData }) => {
       },
     );
     const uploadImageURL = await res.json();
-   console.log(uploadImageURL);
-   setImageUrl(uploadImageURL.url);
+    console.log(uploadImageURL);
+    setImageUrl(uploadImageURL.url);
     setLoading(false);
   };
   const handleUpdate = async () => {
@@ -67,7 +68,7 @@ const ProductModal = ({ value, id, initialData }) => {
         quantity: Number(quantityRef.current.value),
         description: descriptionRef.current.value,
         brand: brandRef.current.value,
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
       };
       await update(id, updatedDate);
       handleClose();
@@ -76,7 +77,7 @@ const ProductModal = ({ value, id, initialData }) => {
     }
   };
   const handleSubmit = () => {
-    if (value === "Update") {
+    if (isUpdate === true) {
       handleUpdate();
     } else {
       handleNewProduct();
@@ -84,13 +85,25 @@ const ProductModal = ({ value, id, initialData }) => {
   };
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        {value}
+      <Button
+        variant="success"
+        onClick={handleShow}
+        style={{
+          width: value ? "100%" : "auto",
+          padding: value ? "10px" : "3px",
+        }}
+      >
+        <div className="d-flex align-items-center justify-content-center">
+          <span>{value}</span>
+          <span style={{ fontSize: "20px" }} className="ms-1">
+            {icon && <FontAwesomeIcon icon={icon} />}
+          </span>
+        </div>
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>New Product</Modal.Title>
+          <Modal.Title> {isUpdate?"Update Product" :"New Product"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -106,30 +119,12 @@ const ProductModal = ({ value, id, initialData }) => {
               ref={priceRef}
               defaultValue={initialData?.price}
             />
-            {/* <label htmlFor="category">Choose a Category:</label>
-            <br /> */}
-            {/* <select
-              ref={categoryRef}
-              defaultValue={initialData?.category || ""}
-              name="category"
-              id="category"
-              className=" my-3 form-select"
-            >
-              <option value="" disabled hidden>
-                Select an option
-              </option>
-              <option value="Clothing">Clothing</option>
-              <option value="Tech">Tech</option>
-              <option value="video game">Video Game</option>
-              <option value="Books">Books</option>
-              <option value="School">School</option>
-              <option value="Personal Care">Personal Care</option>
-            </select> */}
-                    <Inputs
+
+            <Inputs
               type={"text"}
               id={"category"}
               ref={categoryRef}
-              defaultValue={initialData?.category ||""}
+              defaultValue={initialData?.category || ""}
             />
             <Inputs
               type={"text"}
@@ -150,11 +145,7 @@ const ProductModal = ({ value, id, initialData }) => {
               ref={quantityRef}
               defaultValue={initialData?.quantity}
             />
-            <Inputs
-              type={"file"}
-              id={"image"}
-              onChange={handleFileUpload}
-            />
+            <Inputs type={"file"} id={"image"} onChange={handleFileUpload} />
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -162,7 +153,7 @@ const ProductModal = ({ value, id, initialData }) => {
             Close
           </Button>
           <Button variant="primary" onClick={handleSubmit} disabled={loading}>
-            {loading ?<Spinner></Spinner> :"Save Changes"} 
+            {loading ? <Spinner></Spinner> : "Save Changes"}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -77,7 +77,7 @@ const Shop = () => {
             ?.slice(startIndex,startIndex + slicedProduct)
             .map((product, index) => {
               return (
-                <Col md={4} xs={6} key={index}>
+                <Col md={4} xs={12} key={index}>
                   <Card
                     style={{
                       width: "100%",
@@ -110,6 +110,10 @@ const Shop = () => {
                           fontSize: "14px",
                           textTransform: "uppercase",
                           fontWeight: "600",
+                          whiteSpace:'nowrap',
+                          textOverflow:'ellipsis',
+                            overflow: "hidden",
+
                         }}
                       >
                         {product.name}
@@ -133,11 +137,14 @@ const Shop = () => {
               );
             })}
         </Row>
+        <div className="ms-2">
+
         <PaginationCom
           totalPages={totalPages}
           active={currentPage}
           setCurrentPage={setCurrentPage}
-        />
+          />
+          </div>
       </Container>
     </div>
   );

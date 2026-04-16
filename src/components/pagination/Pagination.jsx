@@ -15,7 +15,7 @@ const PaginationCom = ({ totalPages, active, setCurrentPage }) => {
     );
   }
 
-  return <Pagination>{items}</Pagination>;
+  return  <Pagination >{items}</Pagination>;
 };
 
 export default PaginationCom;

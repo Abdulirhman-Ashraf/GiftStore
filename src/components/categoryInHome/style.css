@@ -1,0 +1,9 @@
+@media (max-width: 700px) {
+  .CategoryInHome .card  {
+    max-height: 250px !important;
+    margin-block: px;
+  }
+  .CategoryInHome .card img {
+    max-height: 150px !important;
+  }
+}

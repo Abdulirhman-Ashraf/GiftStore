@@ -17,10 +17,9 @@ const OrdersTableSearch = ({ setFilteredOrders }) => {
   return (
     <>
       <div className="search">
-        <Container>
           <Form onSubmit={handleFilter}>
-            <Row className="align-items-center m-auto">
-              <Col md={9}>
+            <Row className="align-items-center ">
+              <Col md={9} xs={12}>
                 <Inputs
                   type={"search"}
                   id={"Search by Name"}
@@ -32,14 +31,13 @@ const OrdersTableSearch = ({ setFilteredOrders }) => {
                   }}
                 />
               </Col>
-              <Col md={3}>
+              <Col md={3} xs={12}>
                 <Button type="submit" className="btn searchBtn">
                   Search
                 </Button>
               </Col>
             </Row>
           </Form>
-        </Container>
       </div>
     </>
   );

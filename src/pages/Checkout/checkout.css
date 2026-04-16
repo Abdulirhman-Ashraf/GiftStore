@@ -15,9 +15,10 @@
 .checkout .form-check {
   padding: 10px;
   width: 60%;
+  margin-top: 10px;
 }
 .checkout .checkoutBtn {
-   width:100%;
+   width:50%;
   padding-block: 10px !important;
 
 
@@ -27,6 +28,7 @@
   font-weight: 700;
   border-radius: 40px;
   transition: .3s ease-in-out all;
+  margin-top: 10px;
 }
 
 .checkout .checkoutBtn:hover ,
@@ -34,4 +36,19 @@
 .checkout .checkoutBtn:active {
   background-color: rgb(var(--color-primary));
   color: rgb(var(--color-bg-main));
+}
+@media(max-width:500px){
+
+.checkout .checkoutBtn {
+   width:95%;
+
+ margin: auto;
+  margin-top: 10px;
+
+}
+.checkout .form-check {
+  width: 100%;
+    margin-top: 10px;
+
+}
 }

@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import PaginationCom from "../../components/pagination/Pagination";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import { useFireStore } from "../../context/FireStoreContext";
-
+import './style.css'
 const OrdersTable = ({ filteredOrders }) => {
   const { updateOrders } = useFireStore();
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,11 +12,10 @@ const OrdersTable = ({ filteredOrders }) => {
   const totalPages = Math.ceil(filteredOrders.length / slicedProduct);
   const handleStatus = async (id,status) => {
     await updateOrders(id,{status:status});
-    console.log("succeed")
   };
   return (
     <div className="orderTable">
-      <Table responsive bordered striped hover>
+      <Table responsive  striped hover>
         <thead>
           <tr>
             <th>#</th>

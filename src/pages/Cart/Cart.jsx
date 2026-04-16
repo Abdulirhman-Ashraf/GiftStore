@@ -37,7 +37,6 @@ const Cart = () => {
   }, [cartItems]);
   return (
     <div className="cartPage">
-      <Container>
         <Button
           onClick={handleShow}
           style={{
@@ -52,6 +51,7 @@ const Cart = () => {
         >
           Cart <FontAwesomeIcon className="cartIcon" icon={faCartShopping} />
         </Button>
+      <Container>
 
         <Offcanvas
           show={isCartOpen}

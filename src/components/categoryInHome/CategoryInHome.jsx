@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NoImage from "../../assets/image-icon-front-side.jpg";
-
+import './style.css'
 const CategoryInHome = ({ products, h2, category }) => {
   const [filteredProducts, setfilteredProducts] = useState();
   useEffect(() => {
@@ -13,12 +13,12 @@ const CategoryInHome = ({ products, h2, category }) => {
     }
   }, []);
   return (
-    <Row>
+    <Row className="CategoryInHome">
       <Row className="align-items-center">
         <Col md={11}>
           <h2 className=" my-4">{h2}</h2>
         </Col>
-        <Col md={1}>
+        <Col md={1} className="text-end">
           <Link to="/shop" state={{ category: category }}>
             see more
           </Link>
@@ -33,6 +33,7 @@ const CategoryInHome = ({ products, h2, category }) => {
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <Card
+              className="card"
               style={{
                 height: "320px",
                 display: "flex",

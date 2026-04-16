@@ -3,6 +3,8 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./search.css";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Search = ({ products = [], setDisplayedProduct, location }) => {
   const [search, setSearch] = useState("");
   const categoryRef = useRef();
@@ -38,9 +40,8 @@ const Search = ({ products = [], setDisplayedProduct, location }) => {
 
   return (
     <div className="search">
-      <Container>
         <Form  onSubmit={handleFilter}>
-          <Row className="align-items-center m-auto">
+          <Row className="align-items-center ">
             <Col md={3}>
               <select
                 className="form-select "
@@ -74,11 +75,14 @@ const Search = ({ products = [], setDisplayedProduct, location }) => {
             <Col md={3}>
               <Button type="submit" className="btn searchBtn">
                 Search
+                <span style={{marginInline:"3px"}}>
+
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </span>
               </Button>
             </Col>
           </Row>
         </Form>
-      </Container>
     </div>
   );
 };

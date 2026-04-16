@@ -2,8 +2,8 @@ import { useFireStore } from "../../context/FireStoreContext";
 import img_1 from "../../assets/service-1.jpg";
 import img_2 from "../../assets/service-3.jpg";
 import img_3 from "../../assets/service-4.jpg";
-import "./home.css";
 import CategoryInHome from "../../components/categoryInHome/CategoryInHome";
+import "./home.css";
 const Home = () => {
   const { products } = useFireStore();
   return (
