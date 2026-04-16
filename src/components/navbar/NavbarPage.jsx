@@ -10,32 +10,32 @@ const NavbarPage = () => {
 
   return (
     <div className="navbarPage">
-      <Navbar expand="lg" className=" w-100 ">
+      <Navbar collapseOnSelect expand="lg" className=" w-100 ">
         <Container>
-          <Navbar.Brand as={Link} to="/" style={{ fontWeight: "bold" }}>
+          <Navbar.Brand style={{ fontWeight: "bold" }} >
             GiftStore
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="m-auto">
-              <Nav.Link as={Link} to="/">
+              <Nav.Link as={Link} to="/" eventKey="1">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/shop">
+              <Nav.Link as={Link} to="/shop" eventKey="2">
                 Shop
               </Nav.Link>
-              <Nav.Link as={Link} to="/profile">
+              <Nav.Link as={Link} to="/profile" eventKey="3">
                 Profile
               </Nav.Link>
               {role === "admin" && currentUser && (
-                <Nav.Link as={Link} to="/dashboard">
+                <Nav.Link as={Link} to="/dashboard" eventKey="4">
                   Dashboard
                 </Nav.Link>
               )}
 
               {!currentUser && (
                 <>
-                  <Nav.Link as={Link} to="/login">
+                  <Nav.Link as={Link} to="/login" eventKey="5">
                     Login
                   </Nav.Link>
                 </>
