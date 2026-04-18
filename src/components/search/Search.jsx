@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./search.css";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const Search = ({ products = [], setDisplayedProduct }) => {
+const Search = ({ products = [], setDisplayedProduct, location }) => {
   const [search, setSearch] = useState("");
   const categoryRef = useRef();
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ const Search = ({ products = [], setDisplayedProduct }) => {
         (product) =>
           product.category.toLowerCase() === categoryValue.toLowerCase(),
       );
+      navigate(`/${location}?category=${categoryValue}`);
     }
     if (searchValue) {
       filteredResult = filteredResult.filter((product) =>
@@ -32,7 +33,7 @@ const Search = ({ products = [], setDisplayedProduct }) => {
       );
     }
     if (categoryValue === "All") {
-      navigate(`/shop`);
+      navigate(`/${location}`);
     }
     setDisplayedProduct(filteredResult);
   };

@@ -16,7 +16,11 @@ const ProductsTable = ({ displayedProduct }) => {
   const slicedProduct = 6;
   const startIndex = (currentPage - 1) * slicedProduct;
   const totalPages = Math.ceil(displayedProduct.length / slicedProduct);
-
+useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage]);
   return (
     <>
       <div className=" profile">

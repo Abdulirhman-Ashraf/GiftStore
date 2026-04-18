@@ -15,7 +15,19 @@ const PaginationCom = ({ totalPages, active, setCurrentPage }) => {
     );
   }
 
-  return  <Pagination >{items}</Pagination>;
+  return totalPages>1 && <Pagination >
+    <Pagination.Prev
+        onClick={() => setCurrentPage(active - 1)}
+        disabled={active === 1}
+      />
+
+      { items}
+      <Pagination.Next
+        onClick={() => setCurrentPage(active + 1)}
+        disabled={active === totalPages}
+      />
+  
+  </Pagination>;
 };
 
 export default PaginationCom;

@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  Badge,
-  Button,
-  Card,
-  Col,
-  Container,
-  Row,
-} from "react-bootstrap";
+import { Alert, Badge, Card, Col, Container, Row } from "react-bootstrap";
 import { useFireStore } from "../../context/FireStoreContext";
 import Search from "../../components/search/Search";
 import NoImage from "../../assets/image-icon-front-side.jpg";
@@ -25,9 +17,9 @@ const Shop = () => {
   const { products } = useFireStore();
   const [displayProducts, setDisplayedProduct] = useState([]);
   const navigate = useNavigate();
-  const [serachParam] = useSearchParams();
+  const [serachParams] = useSearchParams();
 
-  const categoryFromUrl = serachParam.get("category");
+  const categoryFromUrl = serachParams.get("category");
   const location = useLocation();
   const categoryFromHome = location.state?.category;
   const activeCategory = categoryFromHome || categoryFromUrl;
@@ -41,9 +33,10 @@ const Shop = () => {
     } else {
       setDisplayedProduct(products);
     }
+    setCurrentPage(1);
   }, [products, activeCategory]);
   const removeFilter = () => {
-    navigate("/shop")
+    navigate("/shop");
   };
 
   // pagination
@@ -51,7 +44,7 @@ const Shop = () => {
   const startIndex = (currentPage - 1) * slicedProduct;
   const totalPages = Math.ceil(displayProducts.length / slicedProduct);
   return (
-    <div className="shop ">
+    <div className="shop">
       <Container>
         <h2 className="text-center mt-5" style={{ fontWeight: "bold" }}>
           shop
@@ -59,6 +52,7 @@ const Shop = () => {
         <Search
           products={products}
           setDisplayedProduct={setDisplayedProduct}
+          location={"shop"}
         />
 
         {activeCategory && (
@@ -73,63 +67,30 @@ const Shop = () => {
         {!displayProducts.length && <Alert variant="info">Not Found!</Alert>}
         <Row className=" m-auto">
           {displayProducts
-            ?.slice(startIndex,startIndex + slicedProduct)
-            .map((product, index) => {
+            ?.slice(startIndex, startIndex + slicedProduct)
+            .map((product) => {
               return (
-                <Col md={4} xs={12} key={index}>
-                  <Card
-                    style={{
-                      width: "100%",
-                      height: "380px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "start",
-                      gap: "10px",
-                      border: "none",
-                      overflow: "hidden",
-                      borderRadius: "8px",
-                      padding: "10px",
-                      margin: "10px auto",
-
-                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)",
-                    }}
-                  >
+                <Col md={4} xs={12} key={product.id}>
+                  <Card className="shop-card">
                     <Card.Img
                       variant="top"
                       src={product?.imageUrl || NoImage}
-                      style={{
-                        width: "100%",
-                        height: "220px",
-                        objectFit: "cover",
-                      }}
                     />
                     <Card.Body>
-                      <Card.Title
-                        style={{
-                          fontSize: "14px",
-                          textTransform: "uppercase",
-                          fontWeight: "600",
-                          whiteSpace:'nowrap',
-                          textOverflow:'ellipsis',
-                            overflow: "hidden",
-
-                        }}
-                      >
-                        {product.name}
-                      </Card.Title>
-                      <Card.Title style={{ fontSize: "16px" }}>
+                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Text style={{ fontSize: "16px" }}>
                         <strong>${product.price.toFixed(2)}</strong>
-                      </Card.Title>
-                      <Link
-                        key={product.id}
-                        to={`/details-page`}
-                        state={{ product: product }}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        <button className="btn productBtn">
+                      </Card.Text>
+                      <button className="btn productBtn">
+                        <Link
+                          key={product.id}
+                          to={`/details-page`}
+                          state={{ product: product }}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
                           Product Details
-                        </button>
-                      </Link>
+                        </Link>
+                      </button>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -137,13 +98,12 @@ const Shop = () => {
             })}
         </Row>
         <div className="ms-2">
-
-        <PaginationCom
-          totalPages={totalPages}
-          active={currentPage}
-          setCurrentPage={setCurrentPage}
+          <PaginationCom
+            totalPages={totalPages}
+            active={currentPage}
+            setCurrentPage={setCurrentPage}
           />
-          </div>
+        </div>
       </Container>
     </div>
   );
