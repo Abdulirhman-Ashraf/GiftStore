@@ -25,7 +25,7 @@ const Shop = () => {
   const { products } = useFireStore();
   const [displayProducts, setDisplayedProduct] = useState([]);
   const navigate = useNavigate();
-  const [serachParam,setSearchParams] = useSearchParams();
+  const [serachParam] = useSearchParams();
 
   const categoryFromUrl = serachParam.get("category");
   const location = useLocation();
@@ -43,9 +43,8 @@ const Shop = () => {
     }
   }, [products, activeCategory]);
   const removeFilter = () => {
-setSearchParams({})
-navigate(location.pathname, { replace: true, state: {} });
-};
+    navigate("/shop")
+  };
 
   // pagination
   const slicedProduct = 6;
@@ -60,7 +59,6 @@ navigate(location.pathname, { replace: true, state: {} });
         <Search
           products={products}
           setDisplayedProduct={setDisplayedProduct}
-          location={"shop"}
         />
 
         {activeCategory && (
