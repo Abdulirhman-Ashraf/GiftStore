@@ -5,6 +5,7 @@ import { faWallet } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useFireStore } from "../../context/FireStoreContext";
+import Inputs from "../../components/inputs/Inputs";
 import "./checkout.css";
 const Checkout = () => {
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -70,93 +71,80 @@ const Checkout = () => {
             <Col xs={12} md={6}>
               <h4>billing & shipping address</h4>
               <Row className="my-3 ">
-                <Form.Group as={Col} controlId="formGridName">
-                  <Form.Label>name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Name"
-                    name="name"
+            
+                <Col>
+                  <Inputs
+                    id={"name"}
+                    placeholder={"name"}
+                    type={"text"}
+                    onChange={handleChange}
                     value={formData.name}
-                    required
-                    onChange={handleChange}
+                    name={"name"}
                   />
-                </Form.Group>
+                </Col>
 
-                <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    name="email"
+                <Col>
+                  <Inputs
+                    id={"email"}
+                    type={"email"}
                     onChange={handleChange}
-                    required
+                    value={formData.email}
                   />
-                </Form.Group>
+                </Col>
               </Row>
 
-              <Form.Group className="mb-3" controlId="formGridAddress1">
-                <Form.Label>phone</Form.Label>
-                <Form.Control
-                  type="tel"
-                  placeholder="1234 Main St"
-                  name="phone"
-                  required
+              <Col>
+                <Inputs
+                  id={"phone"}
+                  type={"tel"}
+                  onChange={handleChange}
                   value={formData.phone}
-                  onChange={handleChange}
+                  name={"phone"}
+                  maxlength={"11"}
                 />
-              </Form.Group>
-              <Form.Group
-                className="mb-3"
-                controlId="formGridAddress1"
-                aria-required
-              >
-                <Form.Label>Address</Form.Label>
-                <Form.Control
-                  placeholder="1234 Main St"
-                  required
-                  name="address"
+              </Col>
+              <Col>
+                <Inputs
+                  id={"address"}
+                  placeholder={"1234 Main St"}
+                  type={"text"}
+                  onChange={handleChange}
                   value={formData.address}
-                  onChange={handleChange}
                 />
-              </Form.Group>
+              </Col>
 
               <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridCity">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    required
+                <Col>
+                  <Inputs
+                    id={"city"}
+                    type={"text"}
+                    onChange={handleChange}
                     value={formData.city}
-                    name="city"
-                    onChange={handleChange}
                   />
-                </Form.Group>
+                </Col>
 
-                <Form.Group as={Col} controlId="formGridState">
-                  <Form.Label>State</Form.Label>
-                  <Form.Control
-                    type="text"
-                    required
+                <Col>
+                  <Inputs
+                    id={"state"}
+                    type={"text"}
+                    onChange={handleChange}
                     value={formData.state}
-                    name="state"
-                    onChange={handleChange}
                   />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridZip">
-                  <Form.Label>Zip</Form.Label>
-                  <Form.Control
+                </Col>
+                <Col>
+                  <Inputs
+                    id={"zip"}
+                    onChange={handleChange}
                     value={formData.zip}
-                    name="zip"
-                    onChange={handleChange}
+                    isRequired={false}
                   />
-                </Form.Group>
+                </Col>
               </Row>
             </Col>
 
             <Col xs={12} md={6}>
               <h4>payment details</h4>
-              <Row className="d-flex align-items-center">
+              <Row className="d-flex align-items-center mt-4">
                 <Col xs={6} md={12}>
                   <Form.Check type="radio" id="paypal" className=" p-0">
                     <Form.Check.Input
@@ -170,7 +158,7 @@ const Checkout = () => {
                       className={` d-flex align-items-center p-3 border rounded ${selectedMethod === "paypal" ? "border-primary bg-light" : ""}`}
                       style={{ cursor: "pointer", transition: "all 0.2s ease" }}
                     >
-                      <div className="ms-3 fs-2"> </div>
+                      <div className="ms-3 fs-3"> </div>
                       <div className="d-flex flex-column">
                         <span className="fw-bold text-dark">(PayPal)</span>
                       </div>
@@ -190,11 +178,10 @@ const Checkout = () => {
                       className="d-none"
                     />
                     <Form.Check.Label
-                      className={` d-flex align-items-center p-2 border rounded ${selectedMethod === "cash" ? "border-primary bg-light" : ""}`}
+                      className={` d-flex align-items-center p-3 border rounded ${selectedMethod === "cash" ? "border-primary bg-light" : ""}`}
                       style={{ cursor: "pointer", transition: "all 0.2s ease" }}
                     >
-                      <div className="ms-2 fs-1">
-                        <FontAwesomeIcon icon={faWallet} />
+                      <div className="ms-4 fs-2">
                       </div>
                       <div className="d-flex flex-column">
                         <span className="fw-bold text-dark">(Cash)</span>
