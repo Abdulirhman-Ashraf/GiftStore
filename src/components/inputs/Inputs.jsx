@@ -32,7 +32,7 @@ const Inputs = forwardRef(
           name={id}
           style={style}
           required={isRequired}
-          maxlength={maxlength}
+          maxLength={maxlength}
         />
       </Form.Group>
     );
