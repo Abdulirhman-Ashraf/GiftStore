@@ -56,7 +56,7 @@ const ProductModal = ({ value, id, initialData, icon, isUpdate }) => {
     );
     const uploadImageURL = await res.json();
     console.log(uploadImageURL);
-    setImageUrl(uploadImageURL.url);
+    setImageUrl(uploadImageURL.url.secure_url);
     setLoading(false);
   };
   const handleUpdate = async () => {
