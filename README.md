@@ -1,17 +1,20 @@
-# React + Vite
+a full-stack E-Commerce platform with an integrated Admin Dashboard to manage operations seamlessly
+The main focus of this project was to build a smooth UI and handle dynamic
+ data rendering efficiently to ensure the best performance
+<Key Features>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Admin Dashboard: A fully functional system to manage products (CRUD operations) and track orders in real-time
+Advanced Search & Filtering: Precise product search and category filtering
+ mechanisms
+Custom Pagination: Built a robust pagination system that efficiently handles dynamic data changes (like filtering or searching) without rendering errors or data mismatch.
+State Management: Full control over the shopping cart and data flow across 
+different components
 
-Currently, two official plugins are available:
+<Tech Stack>
+Front-end: React.js, React Router v7, Context API
+Styling: React Bootstrap, CSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Back-end/BaaS: Firebase (Authentication & Firestore)
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
+You can check out the live project and the source code here
+🔗 Live Demo :https://gift-store-orpin.vercel.app/
